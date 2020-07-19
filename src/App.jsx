@@ -1,13 +1,12 @@
 import React from 'react';
-import { Switch, BrowserRouter, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import Rules from './pages/Rules'
-import NotFound from './pages/NotFound'
+import { Switch, BrowserRouter, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Rules from './pages/Rules';
+import NotFound from './pages/NotFound';
 
-import Layout from './components/Layout'
+import Layout from './components/Layout';
 
-function App(props) {
-
+function App() {
   return (
     <React.Fragment>
       <BrowserRouter>

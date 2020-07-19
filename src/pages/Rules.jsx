@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Rules = () => {
-    return (
-        <React.Fragment>
-            Rules
-        </React.Fragment>
-    )
-}
+const Rules = () => (
+  <React.Fragment>
+    <h1>Rules</h1>
+  </React.Fragment>
+);
 
 export default Rules;
