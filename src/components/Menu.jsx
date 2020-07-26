@@ -20,21 +20,28 @@ const useStyles = makeStyles((theme) => ({
 
 const Menu = () => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [selectedKey, setSelectedKey] = React.useState('home');
 
-  const handleClickLanguages = () => {
+  const [open, setOpen] = React.useState(true);
+
+  const handleClickOnMenu = (key) => {
+    setSelectedKey(key);
+  };
+
+  const handleClickLanguages = (e) => {
+    e.preventDefault();
     setOpen(!open);
   };
 
   return (
     <List>
-      <ListItem button to="/" component={Link}>
+      <ListItem onClick={() => handleClickOnMenu('home')} selected={selectedKey === 'home'} button to="/" component={Link}>
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="Home" />
       </ListItem>
-      <ListItem button to="/translation" component={Link}>
+      <ListItem onClick={() => handleClickOnMenu('translator')} selected={selectedKey === 'translator'} button to="/translator" component={Link}>
         <ListItemIcon>
           <TranslateIcon />
         </ListItemIcon>
@@ -49,13 +56,13 @@ const Menu = () => {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button to="/languages" component={Link} className={classes.nested}>
+          <ListItem onClick={() => handleClickOnMenu('languages')} selected={selectedKey === 'languages'} button to="/languages" component={Link} className={classes.nested}>
             <ListItemIcon>
               <ListIcon />
             </ListItemIcon>
             <ListItemText primary="List" />
           </ListItem>
-          <ListItem button to="/rules" component={Link} className={classes.nested}>
+          <ListItem onClick={() => handleClickOnMenu('rules')} selected={selectedKey === 'rules'} button to="/rules" component={Link} className={classes.nested}>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
