@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "react-app",
+    "airbnb-base"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+}
