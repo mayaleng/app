@@ -1,3 +1,6 @@
+// Menu
+export const SELECT_MENU = 'SELECT_MENU';
+
 // Login
 export const SET_PROFILE = 'SET_PROFILE';
 

@@ -1,9 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import {
   List, ListItem, ListItemIcon, ListItemText, Collapse,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import TranslateIcon from '@material-ui/icons/Translate';
@@ -11,67 +10,134 @@ import LanguageIcon from '@material-ui/icons/Language';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ListIcon from '@material-ui/icons/List';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
+import { selectMenu as selectMenuAction } from '../redux/actions/menu';
+
+const styles = (theme) => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
-}));
+});
 
-const Menu = () => {
-  const classes = useStyles();
-  const [selectedKey, setSelectedKey] = React.useState('home');
+class Menu extends React.Component {
+  state = {
+    languagesOpened: true,
+  }
 
-  const [open, setOpen] = React.useState(true);
+  constructor(props) {
+    super(props);
+    const { selectMenu } = this.props;
+    const menu = this.getMenuFromPath(this.props.location.pathname);
+    selectMenu(menu);
+  }
 
-  const handleClickOnMenu = (key) => {
-    setSelectedKey(key);
+  getPathFromMenu = (menu) => {
+    switch (menu) {
+      case 'translator':
+        return '/translator';
+      case 'languages':
+        return '/languages';
+      case 'rules':
+        return '/rules';
+      default:
+        return '/';
+    }
+  }
+
+  getMenuFromPath = (path) => {
+    switch (path) {
+      case '/translator':
+        return 'translator';
+      case '/languages':
+        return 'languages';
+      case '/rules':
+        return 'rules';
+      default:
+        return '';
+    }
   };
 
-  const handleClickLanguages = (e) => {
+  handlehandleMenuSelection = (menu) => {
+    const { selectMenu } = this.props;
+    const path = this.getPathFromMenu(menu);
+    selectMenu(menu);
+    this.props.history.push(path);
+  }
+
+  handleLanguages = (e) => {
+    const {
+      languagesOpened,
+    } = this.state;
     e.preventDefault();
-    setOpen(!open);
+    this.setState({ languagesOpened: !languagesOpened });
   };
 
-  return (
-    <List>
-      <ListItem onClick={() => handleClickOnMenu('home')} selected={selectedKey === 'home'} button to="/" component={Link}>
-        <ListItemIcon>
-          <HomeIcon />
-        </ListItemIcon>
-        <ListItemText primary="Home" />
-      </ListItem>
-      <ListItem onClick={() => handleClickOnMenu('translator')} selected={selectedKey === 'translator'} button to="/translator" component={Link}>
-        <ListItemIcon>
-          <TranslateIcon />
-        </ListItemIcon>
-        <ListItemText primary="Translator" />
-      </ListItem>
-      <ListItem button onClick={handleClickLanguages}>
-        <ListItemIcon>
-          <LanguageIcon />
-        </ListItemIcon>
-        <ListItemText primary="Languages" />
-        {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem onClick={() => handleClickOnMenu('languages')} selected={selectedKey === 'languages'} button to="/languages" component={Link} className={classes.nested}>
-            <ListItemIcon>
-              <ListIcon />
-            </ListItemIcon>
-            <ListItemText primary="List" />
-          </ListItem>
-          <ListItem onClick={() => handleClickOnMenu('rules')} selected={selectedKey === 'rules'} button to="/rules" component={Link} className={classes.nested}>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Rules" />
-          </ListItem>
-        </List>
-      </Collapse>
-    </List>
-  );
+  render() {
+    const {
+      classes,
+      selectedMenu,
+    } = this.props;
+
+    const {
+      languagesOpened,
+    } = this.state;
+
+    return (
+      <List>
+        <ListItem onClick={() => this.handlehandleMenuSelection('home')} selected={selectedMenu === 'home'} button>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem onClick={() => this.handlehandleMenuSelection('translator')} selected={selectedMenu === 'translator'} button>
+          <ListItemIcon>
+            <TranslateIcon />
+          </ListItemIcon>
+          <ListItemText primary="Translator" />
+        </ListItem>
+        <ListItem button onClick={this.handleLanguages}>
+          <ListItemIcon>
+            <LanguageIcon />
+          </ListItemIcon>
+          <ListItemText primary="Languages" />
+          {languagesOpened ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ListItem>
+        <Collapse in={languagesOpened} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem onClick={() => this.handlehandleMenuSelection('languages')} selected={selectedMenu === 'languages'} button className={classes.nested}>
+              <ListItemIcon>
+                <ListIcon />
+              </ListItemIcon>
+              <ListItemText primary="List" />
+            </ListItem>
+            <ListItem onClick={() => this.handlehandleMenuSelection('rules')} selected={selectedMenu === 'rules'} button className={classes.nested}>
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Rules" />
+            </ListItem>
+          </List>
+        </Collapse>
+      </List>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  const {
+    menu: {
+      selectedMenu,
+    },
+  } = state;
+
+  return { selectedMenu };
 };
 
-export default Menu;
+const mapDispatchToProps = {
+  selectMenu: selectMenuAction,
+};
+
+export default withRouter(withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Menu)));
