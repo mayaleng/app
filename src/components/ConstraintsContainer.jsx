@@ -45,6 +45,9 @@ class ConstraintsContainer extends React.Component {
         {
           id: 'item-3',
         },
+        {
+          id: 'item-4',
+        },
       ],
     };
     this.onDragEnd = this.onDragEnd.bind(this);

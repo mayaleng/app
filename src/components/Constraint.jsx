@@ -16,6 +16,9 @@ class Constraint extends React.Component {
           <li style={ { listStyle: 'none' } }>
             <Chip style={ { margin: '5px' } } label="transitive" onDelete={() => (true)}/>
             <Chip style={ { margin: '5px' } } label="masculine" onDelete={() => (true)}/>
+            <Chip style={ { margin: '5px' } } label="masculine" onDelete={() => (true)}/>
+            <Chip style={ { margin: '5px' } } label="masculine" onDelete={() => (true)}/>
+            <Chip style={ { margin: '5px' } } label="masculine" onDelete={() => (true)}/>
           </li>
         </CardActions>
       </Card>
