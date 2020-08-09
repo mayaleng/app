@@ -9,6 +9,7 @@ import TranslateIcon from '@material-ui/icons/Translate';
 import LanguageIcon from '@material-ui/icons/Language';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import InfoIcon from '@material-ui/icons/Info';
 import ListIcon from '@material-ui/icons/List';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -41,6 +42,8 @@ class Menu extends React.Component {
         return '/languages';
       case 'rules':
         return '/rules';
+      case 'about':
+        return '/about';
       default:
         return '/';
     }
@@ -54,6 +57,8 @@ class Menu extends React.Component {
         return 'languages';
       case '/rules':
         return 'rules';
+      case '/about':
+        return 'about';
       default:
         return '';
     }
@@ -121,6 +126,12 @@ class Menu extends React.Component {
             </ListItem>
           </List>
         </Collapse>
+        <ListItem onClick={() => this.handlehandleMenuSelection('about')} selected={selectedMenu === 'about'} button>
+          <ListItemIcon>
+            <InfoIcon></InfoIcon>
+          </ListItemIcon>
+          <ListItemText primary="About"/>
+        </ListItem>
       </List>
     );
   }
