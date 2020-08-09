@@ -13,6 +13,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import ListIcon from '@material-ui/icons/List';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 
 import { selectMenu as selectMenuAction } from '../redux/actions/menu';
 
@@ -83,6 +84,7 @@ class Menu extends React.Component {
     const {
       classes,
       selectedMenu,
+      t,
     } = this.props;
 
     const {
@@ -95,19 +97,19 @@ class Menu extends React.Component {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText primary="Home" />
+          <ListItemText primary={t('menu.home')} />
         </ListItem>
         <ListItem onClick={() => this.handlehandleMenuSelection('translator')} selected={selectedMenu === 'translator'} button>
           <ListItemIcon>
             <TranslateIcon />
           </ListItemIcon>
-          <ListItemText primary="Translator" />
+          <ListItemText primary={t('menu.translator')} />
         </ListItem>
         <ListItem button onClick={this.handleLanguages}>
           <ListItemIcon>
             <LanguageIcon />
           </ListItemIcon>
-          <ListItemText primary="Languages" />
+          <ListItemText primary={t('menu.languages')} />
           {languagesOpened ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </ListItem>
         <Collapse in={languagesOpened} timeout="auto" unmountOnExit>
@@ -130,7 +132,7 @@ class Menu extends React.Component {
           <ListItemIcon>
             <InfoIcon></InfoIcon>
           </ListItemIcon>
-          <ListItemText primary="About"/>
+          <ListItemText primary={t('menu.about')}/>
         </ListItem>
       </List>
     );
@@ -151,4 +153,10 @@ const mapDispatchToProps = {
   selectMenu: selectMenuAction,
 };
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Menu)));
+export default withRouter(
+  withStyles(styles)(
+    withTranslation()(
+      connect(mapStateToProps, mapDispatchToProps)(Menu),
+    ),
+  ),
+);
