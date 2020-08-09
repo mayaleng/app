@@ -94,7 +94,6 @@ class OutputRulesContainer extends React.Component {
                           snapshot.isDragging,
                         )}
                       >
-                        {item.id}
                         <OuputRule></OuputRule>
                       </div>
                       {provided.placeholder}

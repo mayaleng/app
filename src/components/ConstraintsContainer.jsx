@@ -48,6 +48,24 @@ class ConstraintsContainer extends React.Component {
         {
           id: 'item-4',
         },
+        {
+          id: 'item-5',
+        },
+        {
+          id: 'item-6',
+        },
+        {
+          id: 'item-7',
+        },
+        {
+          id: 'item-8',
+        },
+        {
+          id: 'item-9',
+        },
+        {
+          id: 'item-10',
+        },
       ],
     };
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -73,7 +91,7 @@ class ConstraintsContainer extends React.Component {
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="contraints">
+        <Droppable droppableId="contraints" direction="vertical">
           {(dprovided, dsnapshot) => (
             <div
               ref={dprovided.innerRef}
