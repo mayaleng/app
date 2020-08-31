@@ -14,36 +14,73 @@ class ConstraintsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [
+      pattern: 'DET,NOUN,VERB,ADV',
+      words: [
         {
-          id: 'item-1',
+          tag: 'DET',
+          lemma: 'el',
+          type: 'A',
+          properties: {
+            gender: 'M',
+            lemma: 'el',
+            number: 'S',
+            person: '0',
+            pos: '0',
+            possessor: '0',
+            token: 'El',
+            type: 'A',
+          },
         },
         {
-          id: 'item-2',
+          tag: 'NOUN',
+          lemma: 'perro',
+          type: 'C',
+          properties: {
+            gender: 'M',
+            lemma: 'perro',
+            number: 'S',
+            person: '3',
+            pos: '1',
+            token: 'perro',
+            type: 'C',
+          },
         },
         {
-          id: 'item-3',
+          tag: 'VERB',
+          lemma: 'saltar',
+          type: 'M',
+          properties: {
+            gender: '0',
+            lemma: 'saltar',
+            mode: 'I',
+            number: 'S',
+            person: '3',
+            pos: '2',
+            tense: 'P',
+            token: 'salta',
+            type: 'M',
+          },
         },
         {
-          id: 'item-4',
+          tag: 'ADV',
+          lemma: 'mucho',
+          type: 'G',
+          properties: {
+            lemma: 'mucho',
+            pos: '3',
+            token: 'mucho',
+            type: 'G',
+          },
         },
         {
-          id: 'item-5',
-        },
-        {
-          id: 'item-6',
-        },
-        {
-          id: 'item-7',
-        },
-        {
-          id: 'item-8',
-        },
-        {
-          id: 'item-9',
-        },
-        {
-          id: 'item-10',
+          tag: 'SENT',
+          lemma: '.',
+          type: '',
+          properties: {
+            lemma: '.',
+            pos: '4',
+            token: '.',
+          },
         },
       ],
     };
@@ -69,10 +106,10 @@ class ConstraintsContainer extends React.Component {
 
   render() {
     return (
-      <Box display="flex" flexWrap="wrap" justifyContent="center">
-        {this.state.items.map((item) => (
-          <Box style={{ width: '280px' }}>
-            <Constraint key={item.id} ></Constraint>
+      <Box display="flex" flexWrap="wrap" justifyContent="center" >
+        {this.state.words.map((item) => (
+          <Box style={{ width: '280px' }} m={1}>
+            <Constraint key={item.id} {...item} ></Constraint>
           </Box>
         ))}
       </Box>

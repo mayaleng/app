@@ -8,13 +8,7 @@ import OutputRulesContainer from './OutputRulesContainer';
 
 const TranslationRule = ({ t }) => (
   <React.Fragment>
-    <Typography variant="h1">{t('rules.new')}</Typography>
-    <Typography variant="h2">{t('rules.new')}</Typography>
-    <Typography variant="h3">{t('rules.new')}</Typography>
-    <Typography variant="h4">{t('rules.new')}</Typography>
-    <Typography variant="h5">{t('rules.new')}</Typography>
-    <Typography variant="h6">{t('rules.new')}</Typography>
-    <Typography>Normal</Typography>
+    <Typography variant="h1" component="h1">{t('rules.new.title')}</Typography>
 
     <Breadcrumbs aria-label="breadcrumb">
       <Link color="inherit" href="/" >Material-UI</Link>

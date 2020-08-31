@@ -8,22 +8,31 @@ import * as serviceWorker from './serviceWorker';
 const theme = createMuiTheme({
   typography: {
     h1: {
-      fontSize: '3rem',
+      fontSize: '1.9rem',
+      fontWeight: '550',
+      marginBottom: '0.3rem',
     },
     h2: {
-      fontSize: '2.5rem',
+      fontSize: '1.6rem',
+      fontWeight: '450',
+      marginBottom: '0.2rem',
     },
     h3: {
-      fontSize: '2.2rem',
+      fontWeight: '400',
+      fontSize: '1.4rem',
+      marginBottom: '0.2rem',
     },
     h4: {
-      fontSize: '1.8rem',
+      fontSize: '1.3rem',
+      fontWeight: '400',
     },
     h5: {
-      fontSize: '1.4rem',
+      fontSize: '1rem',
+      fontWeight: '400',
     },
     h6: {
-      fontSize: '1.2rem',
+      fontSize: '0.9rem',
+      fontWeight: '400',
     },
   },
 });

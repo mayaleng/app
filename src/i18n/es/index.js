@@ -5,6 +5,11 @@ const translations = {
     languages: 'Idiomas',
     about: 'Acerca de',
   },
+  rules: {
+    new: {
+      title: 'Regla #',
+    },
+  },
 };
 
 export default translations;
