@@ -1,11 +1,16 @@
 import React from 'react';
 import {
-  Card, CardContent, CardActions, Typography, Chip, Collapse,
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Collapse,
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ConstraintProperties from './ConstraintProperties';
 
-const ALLOWED_PROPERTIES = {
+const ALLOWED_FEATURES = {
   gender: true,
   number: true,
   person: true,
@@ -14,20 +19,38 @@ const ALLOWED_PROPERTIES = {
 };
 
 class Constraint extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
     this.state = {
-      propertiesExpanded: false,
+      filteredProperties: [],
+      propertiesExpanded: true,
     };
   }
 
-  render() {
+  onChangeProperty = (e) => {
+    const { filteredProperties = {} } = this.state;
     const {
-      propertiesExpanded,
-    } = this.state;
+      name,
+      value,
+    } = e.target;
 
-    const properties = Object.keys(this.props.properties).reduce((acc, key) => {
-      if (!ALLOWED_PROPERTIES[key]) {
+    this.setState({
+      filteredProperties: {
+        ...filteredProperties,
+        [name]: value,
+      },
+    });
+  }
+
+  componentDidMount() {
+    const filteredProperties = this.filterProperties(this.props.properties);
+    this.setState({ filteredProperties });
+  }
+
+  filterProperties(properties = []) {
+    const filtered = Object.keys(properties).reduce((acc, key) => {
+      if (!ALLOWED_FEATURES[key]) {
         return acc;
       }
 
@@ -37,19 +60,32 @@ class Constraint extends React.Component {
         return acc;
       }
 
-      acc.push({ key, value });
+      acc[key] = value;
+
       return acc;
-    }, []);
+    }, {});
+
+    return filtered;
+  }
+
+  render() {
+    const { propertiesExpanded } = this.state;
 
     return (
-      <Card >
-        <CardContent style={ { paddingBottom: '0px' } }>
-          <Typography gutterBottom color="textSecondary">{this.props.properties.token}</Typography>
-          <Typography variant="h3" style={{ textTransform: 'capitalize' }}>{this.props.tag}</Typography>
+      <Card>
+        <CardContent style={{ paddingBottom: '0px' }}>
+          <Typography gutterBottom color="textSecondary">
+            {this.props.properties.token}
+          </Typography>
+          <Typography variant="h3" style={{ textTransform: 'capitalize' }}>
+            {this.props.tag}
+          </Typography>
         </CardContent>
-        <CardActions style={ { paddingTop: '0px' } }>
+        <CardActions style={{ paddingTop: '0px' }}>
           <IconButton
-            onClick={() => { this.setState({ propertiesExpanded: !propertiesExpanded }); }}
+            onClick={() => {
+              this.setState({ propertiesExpanded: !propertiesExpanded });
+            }}
             aria-expanded={propertiesExpanded}
             aria-label="show more"
             style={{ marginLeft: 'auto' }}
@@ -58,17 +94,11 @@ class Constraint extends React.Component {
           </IconButton>
         </CardActions>
 
-        {properties.length > 0
-          && <Collapse in={propertiesExpanded} tiemout="auto" unmountOnExit>
-            <CardContent>
-              <li style={{ listStyle: 'none' }}>
-                {properties.map((pair) => (
-                  <Chip style={{ margin: '5px' }} label={`${pair.key}: ${pair.value}`} onDelete={() => (true)} />
-                ))}
-              </li>
-            </CardContent>
-          </Collapse>
-        }
+        <Collapse in={propertiesExpanded} tiemout="auto" unmountOnExit>
+          <ConstraintProperties
+          properties={this.state.filteredProperties} onChange={this.onChangeProperty}
+          />
+        </Collapse>
       </Card>
     );
   }

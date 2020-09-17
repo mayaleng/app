@@ -11,8 +11,8 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 class ConstraintsContainer extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       pattern: 'DET,NOUN,VERB,ADV',
       words: [
@@ -107,9 +107,9 @@ class ConstraintsContainer extends React.Component {
   render() {
     return (
       <Box display="flex" flexWrap="wrap" justifyContent="center" >
-        {this.state.words.map((item) => (
-          <Box style={{ width: '280px' }} m={1}>
-            <Constraint key={item.id} {...item} ></Constraint>
+        {this.state.words.map((item, index) => (
+          <Box key={index} style={{ width: '200px' }} m={1}>
+            <Constraint {...item} ></Constraint>
           </Box>
         ))}
       </Box>

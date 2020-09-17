@@ -10,6 +10,44 @@ const translations = {
       title: 'Regla #',
     },
   },
+  constraints: {
+    properties: {
+      mode: 'modo',
+      number: 'número',
+      person: 'persona',
+      tense: 'tiempo',
+      gender: 'género',
+    },
+    mode: {
+      I: 'indicativo',
+      S: 'subjuntivo',
+      M: 'imperativo',
+      N: 'infinitivo',
+      G: 'gerundio',
+      P: 'participio',
+    },
+    number: {
+      S: 'singular',
+      P: 'plural',
+      I: 'invariable',
+    },
+    person: {
+      1: 'primera',
+      2: 'segunda',
+      3: 'tercera',
+    },
+    tense: {
+      P: 'presente',
+      I: 'imperfecto',
+      F: 'futuro',
+      S: 'pasado',
+      C: 'conditional',
+    },
+    gender: {
+      M: 'masculino',
+      F: 'femenino',
+    },
+  },
 };
 
 export default translations;
