@@ -82,6 +82,26 @@ class ConstraintsContainer extends React.Component {
             token: '.',
           },
         },
+        {
+          tag: 'SENT',
+          lemma: '.',
+          type: '',
+          properties: {
+            lemma: '.',
+            pos: '4',
+            token: '.',
+          },
+        },
+        {
+          tag: 'SENT',
+          lemma: '.',
+          type: '',
+          properties: {
+            lemma: '.',
+            pos: '4',
+            token: '.',
+          },
+        },
       ],
     };
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -108,7 +128,7 @@ class ConstraintsContainer extends React.Component {
     return (
       <Box display="flex" flexWrap="wrap" justifyContent="center" >
         {this.state.words.map((item, index) => (
-          <Box key={index} style={{ width: '200px' }} m={1}>
+          <Box key={index} style={{ width: '240px' }} m={1}>
             <Constraint {...item} ></Constraint>
           </Box>
         ))}

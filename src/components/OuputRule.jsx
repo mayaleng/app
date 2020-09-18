@@ -1,9 +1,9 @@
 import React from 'react';
-import { Select, MenuItem, Paper } from '@material-ui/core';
+import { Select, MenuItem, Card, CardContent } from '@material-ui/core';
 
 class OuputRule extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       type: 'literal',
     };
@@ -11,12 +11,19 @@ class OuputRule extends React.Component {
 
   render() {
     return (
-      <Paper>
-        <Select value={this.state.type} button>
-          <MenuItem value="literal">Literal</MenuItem>
-          <MenuItem value="direct-translation">Translation</MenuItem>
-        </Select>
-      </Paper>
+      <Card>
+        <CardContent>
+
+          {this.props.a}
+        </CardContent>
+        <CardContent>
+
+          <Select value={this.state.type}>
+            <MenuItem value="literal">Literal</MenuItem>
+            <MenuItem value="direct-translation">Translation</MenuItem>
+          </Select>
+        </CardContent>
+      </Card>
     );
   }
 }
