@@ -1,14 +1,7 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
+import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import Constraint from './Constraint';
-
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
 
 class ConstraintsContainer extends React.Component {
   constructor() {
@@ -104,31 +97,18 @@ class ConstraintsContainer extends React.Component {
         },
       ],
     };
-    this.onDragEnd = this.onDragEnd.bind(this);
-  }
-
-  onDragEnd(result) {
-    // dropped outside the list
-    if (!result.destination) {
-      return;
-    }
-
-    const items = reorder(
-      this.state.items,
-      result.source.index,
-      result.destination.index,
-    );
-
-    this.setState({
-      items,
-    });
   }
 
   render() {
+    let boxWidth = '200px';
+    if (isWidthDown('xs', this.props.width)) {
+      boxWidth = '240px';
+    }
+
     return (
       <Box display="flex" flexWrap="wrap" justifyContent="center" >
         {this.state.words.map((item, index) => (
-          <Box key={index} style={{ width: '240px' }} m={1}>
+          <Box key={index} m={1} width={boxWidth}>
             <Constraint {...item} ></Constraint>
           </Box>
         ))}
@@ -137,4 +117,4 @@ class ConstraintsContainer extends React.Component {
   }
 }
 
-export default ConstraintsContainer;
+export default withWidth()(ConstraintsContainer);

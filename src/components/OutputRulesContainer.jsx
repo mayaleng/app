@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import { Box } from '@material-ui/core';
 import { ReactSortable } from 'react-sortablejs';
 import OuputRule from './OuputRule';
@@ -42,10 +43,15 @@ class OutputRulesContainer extends React.Component {
   }
 
   render() {
+    let boxWidth = '200px';
+    if (isWidthDown('xs', this.props.width)) {
+      boxWidth = '240px';
+    }
+
     return (
       <ReactSortable tag={CustomBox} list={this.state.items} setList={this.setList} animation="200">
         {this.state.items.map((item) => (
-          <Box key={item.id} style={{ width: '240px' }} m={1}>
+          <Box key={item.id} width={boxWidth} m={1}>
             <OuputRule a={item.id}></OuputRule>
           </Box>
         ))}
@@ -54,4 +60,4 @@ class OutputRulesContainer extends React.Component {
   }
 }
 
-export default OutputRulesContainer;
+export default withWidth()(OutputRulesContainer);
