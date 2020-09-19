@@ -1,5 +1,7 @@
 import React from 'react';
-import { Select, MenuItem, Card, CardContent } from '@material-ui/core';
+import {
+  Select, MenuItem, Card, CardContent, FormControl, Box, TextField,
+} from '@material-ui/core';
 
 class OuputRule extends React.Component {
   constructor() {
@@ -9,19 +11,39 @@ class OuputRule extends React.Component {
     };
   }
 
+  onChange = (e) => {
+    const {
+      value,
+      name,
+    } = e.target;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
+    const {
+      type,
+      literalValue,
+    } = this.state;
+
     return (
       <Card>
         <CardContent>
-
-          {this.props.a}
-        </CardContent>
-        <CardContent>
-
-          <Select value={this.state.type}>
-            <MenuItem value="literal">Literal</MenuItem>
-            <MenuItem value="direct-translation">Translation</MenuItem>
-          </Select>
+          <Box mb={2}>
+            <FormControl fullWidth={true} >
+              <Select value={type} onChange={this.onChange} name="type" >
+                <MenuItem value="literal">Literal</MenuItem>
+                <MenuItem value="conditional">Conditional</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+          {type === 'literal'
+            && <FormControl>
+              <TextField value={literalValue} onChange={this.onChange} name="literalValue"/>
+            </FormControl>
+          }
         </CardContent>
       </Card>
     );

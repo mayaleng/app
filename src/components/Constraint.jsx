@@ -24,7 +24,7 @@ class Constraint extends React.Component {
 
     this.state = {
       filteredProperties: [],
-      propertiesExpanded: true,
+      propertiesExpanded: false,
     };
   }
 
