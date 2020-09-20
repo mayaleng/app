@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  Select, MenuItem, Card, CardContent, FormControl, Box, TextField,
+  Select, MenuItem, Card, CardContent, FormControl, Box,
 } from '@material-ui/core';
+import TemplateEditor from './TemplateEdidtor';
 
 class OuputRule extends React.Component {
   constructor() {
@@ -25,7 +26,6 @@ class OuputRule extends React.Component {
   render() {
     const {
       type,
-      literalValue,
     } = this.state;
 
     return (
@@ -40,9 +40,7 @@ class OuputRule extends React.Component {
             </FormControl>
           </Box>
           {type === 'literal'
-            && <FormControl>
-              <TextField value={literalValue} onChange={this.onChange} name="literalValue"/>
-            </FormControl>
+            && <TemplateEditor onChange={this.props.onChange} editorState={this.props.editorState}/>
           }
         </CardContent>
       </Card>

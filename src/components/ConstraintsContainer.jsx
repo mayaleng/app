@@ -100,7 +100,7 @@ class ConstraintsContainer extends React.Component {
   }
 
   render() {
-    let boxWidth = '200px';
+    let boxWidth = '240px';
     if (isWidthDown('xs', this.props.width)) {
       boxWidth = '240px';
     }
@@ -109,7 +109,7 @@ class ConstraintsContainer extends React.Component {
       <Box display="flex" flexWrap="wrap" justifyContent="center" >
         {this.state.words.map((item, index) => (
           <Box key={index} m={1} width={boxWidth}>
-            <Constraint {...item} ></Constraint>
+            <Constraint {...item} index={index + 1}></Constraint>
           </Box>
         ))}
       </Box>

@@ -75,7 +75,7 @@ class Constraint extends React.Component {
       <Card>
         <CardContent style={{ paddingBottom: '0px' }}>
           <Typography gutterBottom color="textSecondary">
-            {this.props.properties.token}
+            # word{this.props.index}
           </Typography>
           <Typography variant="h3" style={{ textTransform: 'capitalize' }}>
             {this.props.tag}
