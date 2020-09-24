@@ -7,7 +7,7 @@ import {
   ContentState,
   EditorState,
 } from 'draft-js';
-import OuputRule from './OuputRule';
+import OuputRule from './OutputRule';
 
 const CustomBox = forwardRef((props, ref) => (
   <Box display="flex" flexWrap="wrap" justifyContent="center" ref={ref}>{props.children}</Box>

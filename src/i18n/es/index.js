@@ -48,6 +48,13 @@ const translations = {
       F: 'femenino',
     },
   },
+  output: {
+    types: {
+      conditional: "condicional",
+      literal: "literal",
+    },
+    conditional: "salida condicional"
+  }
 };
 
 export default translations;
