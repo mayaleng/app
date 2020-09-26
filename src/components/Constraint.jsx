@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 import {
   Card,
   CardContent,
   CardActions,
   Typography,
   Collapse,
-} from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ConstraintProperties from './ConstraintProperties';
+} from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ConstraintProperties from "./ConstraintProperties";
 
 const ALLOWED_FEATURES = {
   gender: true,
@@ -30,10 +30,7 @@ class Constraint extends React.Component {
 
   onChangeProperty = (e) => {
     const { filteredProperties = {} } = this.state;
-    const {
-      name,
-      value,
-    } = e.target;
+    const { name, value } = e.target;
 
     this.setState({
       filteredProperties: {
@@ -41,7 +38,7 @@ class Constraint extends React.Component {
         [name]: value,
       },
     });
-  }
+  };
 
   componentDidMount() {
     const filteredProperties = this.filterProperties(this.props.properties);
@@ -56,7 +53,7 @@ class Constraint extends React.Component {
 
       const value = this.props.properties[key];
 
-      if (value === '0') {
+      if (value === "0") {
         return acc;
       }
 
@@ -73,22 +70,22 @@ class Constraint extends React.Component {
 
     return (
       <Card>
-        <CardContent style={{ paddingBottom: '0px' }}>
+        <CardContent style={{ paddingBottom: "0px" }}>
           <Typography gutterBottom color="textSecondary">
             # word{this.props.index}
           </Typography>
-          <Typography variant="h3" style={{ textTransform: 'capitalize' }}>
+          <Typography variant="h3" style={{ textTransform: "capitalize" }}>
             {this.props.tag}
           </Typography>
         </CardContent>
-        <CardActions style={{ paddingTop: '0px' }}>
+        <CardActions style={{ paddingTop: "0px" }}>
           <IconButton
             onClick={() => {
               this.setState({ propertiesExpanded: !propertiesExpanded });
             }}
             aria-expanded={propertiesExpanded}
             aria-label="show more"
-            style={{ marginLeft: 'auto' }}
+            style={{ marginLeft: "auto" }}
           >
             <ExpandMoreIcon />
           </IconButton>
@@ -96,7 +93,8 @@ class Constraint extends React.Component {
 
         <Collapse in={propertiesExpanded} tiemout="auto" unmountOnExit>
           <ConstraintProperties
-          properties={this.state.filteredProperties} onChange={this.onChangeProperty}
+            properties={this.state.filteredProperties}
+            onChange={this.onChangeProperty}
           />
         </Collapse>
       </Card>

@@ -1,7 +1,5 @@
-import React from 'react';
-import {
-  Editor,
-} from 'draft-js';
+import React from "react";
+import { Editor } from "draft-js";
 
 class TemplateEditor extends React.Component {
   render() {
