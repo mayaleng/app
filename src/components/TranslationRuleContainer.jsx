@@ -1,0 +1,149 @@
+import React from "react";
+import { Grid, Link, Breadcrumbs, Typography } from "@material-ui/core";
+import { withTranslation } from "react-i18next";
+import ConstraintsContainer from "./ConstraintsContainer";
+import OutputRulesContainer from "./OutputRulesContainer";
+
+class TranslationRule extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      constraints: {},
+      output: {},
+    };
+  }
+
+  componentDidMount() {
+    const rule = {
+      source_language: "espaol",
+      target_language: "kaqchikel",
+      pattern: "NOUN,NOUN,VERB,DET,NOUN",
+      details: [
+        {
+          tag: "NOUN",
+          type: "C",
+        },
+        {
+          tag: "NOUN",
+          type: "P",
+        },
+        {
+          tag: "VERB",
+          type: "M",
+          properties: {
+            tense: "S",
+            person: "3",
+          },
+        },
+        {
+          tag: "DET",
+          type: "I",
+        },
+        {
+          tag: "NOUN",
+          type: "C",
+        },
+      ],
+      output: [
+        {
+          type: "conditional",
+          value: '{{ if (eq .Word3.p.tense "S") }}x{{end}}',
+        },
+        {
+          type: "conditional",
+          value:
+            '{{ if and (eq .Word3.Properties.person "3") (eq .Word3.Properties.number "S") ( .Word3.Properties.tr ) }}u{{end}}',
+        },
+        {
+          type: "literal",
+          value: "{{ .Word3.Translation }}",
+        },
+        {
+          type: "literal",
+          value: " ",
+        },
+        {
+          type: "literal",
+          value: "{{ .Word4.Translation }}",
+        },
+        {
+          type: "literal",
+          value: " ",
+        },
+        {
+          type: "literal",
+          value: "{{ .Word5.Translation }}",
+        },
+        {
+          type: "literal",
+          value: " ",
+        },
+        {
+          type: "literal",
+          value: "{{ .Word1.Translation }}",
+        },
+        {
+          type: "literal",
+          value: " ",
+        },
+        {
+          type: "literal",
+          value: "{{ .Word2.Translation }}",
+        },
+      ],
+    };
+
+    this.setState({ constraints: rule.details, outputRules: rule.output });
+  }
+
+  handleConstraintChanges = (newConstraints) => {
+    this.set({ constraints: newConstraints });
+  };
+
+  handleOutputChanges = (newOutputRules) => {
+    this.set({ outputRules: newOutputRules });
+  };
+
+  render() {
+    const { t } = this.props;
+    return (
+      <React.Fragment>
+        <Typography variant="h1" component="h1">
+          {t("rules.new.title")}
+        </Typography>
+
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link color="inherit" href="/">
+            Material-UI
+          </Link>
+          <Link color="inherit" href="/getting-started/installation/">
+            Core
+          </Link>
+          <Typography color="textPrimary">Breadcrumb</Typography>
+        </Breadcrumbs>
+        <Grid container spacing={0}>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            <center>
+              <h3>Constraints</h3>
+              <ConstraintsContainer
+                constraints={this.state.constraints}
+                onChage={this.handleConstraintChanges}
+              />
+            </center>
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            <center>
+              <h3>Output</h3>
+              <OutputRulesContainer
+                outputRules={this.state.outputRules}
+                onChage={this.handleOutputChanges}
+              />
+            </center>
+          </Grid>
+        </Grid>
+      </React.Fragment>
+    );
+  }
+}
+
+export default withTranslation()(TranslationRule);
