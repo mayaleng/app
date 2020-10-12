@@ -10,49 +10,66 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import React from "react";
 import EditConditionalTemplate from "./EditConditionalTemplate";
-
 function compileCoditional(raw) {}
 
 class ConditionalTemplate extends React.Component {
   constructor() {
     super();
     this.state = {
-      openEdit: false,
+      openedIndex: -1,
     };
   }
 
-  handleOpenEdit = () => {
-    this.setState({ openEdit: true });
+  openEditForm = (index) => {
+    this.setState({
+      openedIndex: index,
+    });
   };
 
   handleCloseEdit = () => {
-    this.setState({ openEdit: false });
+    this.setState({
+      openedIndex: -1,
+    });
   };
 
   render() {
-    const { value } = this.props;
-    // {{ if (eq .Word3.p.tense "S") }}x{{end}}
+    const {
+      raw = {
+        conditional: {
+          or: [],
+        },
+      },
+    } = this.props.rule;
 
-    const conditional = compileCoditional(value);
+    const {
+      conditional: { or = [] },
+    } = raw;
 
     return (
       <Grid p={0}>
-        <Box display="flex">
-          <InputBase
-            readOnly
-            placeholder="Path 2"
-            style={{ marginLeft: 1 }}
-          ></InputBase>
-          <IconButton style={{ marginRight: 1 }} onClick={this.handleOpenEdit}>
-            <EditIcon color="action" />
-          </IconButton>
-        </Box>
+        {or.map((_, index) => (
+          <Box display="flex">
+            <InputBase
+              readOnly
+              placeholder={`Path ${index + 1}`}
+              style={{ marginLeft: 1 }}
+            ></InputBase>
+            <IconButton
+              style={{ marginRight: 1 }}
+              onClick={() => this.openEditForm(index)}
+            >
+              <EditIcon color="action" />
+            </IconButton>
+          </Box>
+        ))}
+
         <FormControl>
           <Button variant="outlined">Add new path</Button>
         </FormControl>
-        {this.state.openEdit && (
+        {this.state.openedIndex >= 0 && (
           <EditConditionalTemplate
-            open={this.state.openEdit}
+            open={true}
+            operand={or[this.state.openedIndex]}
             onClose={this.handleCloseEdit}
           ></EditConditionalTemplate>
         )}

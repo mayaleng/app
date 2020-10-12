@@ -3,18 +3,19 @@ function compileOutputRule(outputRule = {}) {
     conditional: { or = [] },
   } = outputRule;
 
-  if (or.length == 0) {
+  if (or.length === 0) {
     return;
   }
 
   const ifs = or.map((operand, index) => {
-    const isLast = index == or.length - 1;
+    const isFirst = index === 0;
+    const isLast = index === or.length - 1;
     const isAnElseIf = index > 0 && !isLast;
 
     const bodyIf = compileOperand(operand);
 
     if (!bodyIf) {
-      return;
+      return undefined;
     }
 
     const { value } = operand;
@@ -23,8 +24,12 @@ function compileOutputRule(outputRule = {}) {
       return `{{else if ${bodyIf}}}${value}`;
     }
 
-    if (isLast) {
+    if (isLast && !isFirst) {
       return `{{else if ${bodyIf}}}${value}{{end}}`;
+    }
+
+    if (isLast && isFirst) {
+      return `{{if ${bodyIf}}}${value}{{end}}`;
     }
 
     return `{{if ${bodyIf}}}${value}`;
@@ -41,6 +46,7 @@ function compileOperand(operand = {}) {
     operands = [],
     word = 0,
     property = "",
+    literal,
   } = operand;
 
   if (and) {
@@ -55,7 +61,11 @@ function compileOperand(operand = {}) {
     return compileWord(operand);
   }
 
-  if (!operation || operands.length == 0) {
+  if (literal) {
+    return JSON.stringify(literal);
+  }
+
+  if (!operation || operands.length === 0) {
     return;
   }
 
@@ -83,15 +93,7 @@ function compileWord({ word = 0, property = "" }) {
 
 function compileOperands(operands = []) {
   const compiledOperands = operands.map((operand) => {
-    const { literal = "", word = 0, property = "" } = operand;
-
-    if (literal) {
-      return JSON.stringify(literal);
-    }
-
-    if (word && property) {
-      return compileWord(operand);
-    }
+    return compileOperand(operand);
   });
 
   return compiledOperands;

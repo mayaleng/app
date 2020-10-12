@@ -35,6 +35,7 @@ class OutputRulesContainer extends React.Component {
       const customOutputRule = {
         id: `item-${index}`,
         type: rule.type,
+        ...rule,
       };
 
       if (rule.type === "literal") {
@@ -107,7 +108,7 @@ class OutputRulesContainer extends React.Component {
             <OuputRule
               onChange={(editorState) => this.onChange(index, editorState)}
               editorState={item.editorState}
-              vaeli={item.value}
+              rule={item}
               type={item.type}
             />
           </Box>

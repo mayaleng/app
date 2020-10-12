@@ -48,6 +48,72 @@ class TranslationRule extends React.Component {
         {
           type: "conditional",
           value: '{{ if (eq .Word3.p.tense "S") }}x{{end}}',
+          raw: {
+            conditional: {
+              or: [
+                {
+                  or: [
+                    {
+                      and: [
+                        {
+                          operation: "eq",
+                          operands: [
+                            {
+                              word: 1,
+                              property: "A",
+                            },
+                            {
+                              literal: "Alex",
+                            },
+                          ],
+                        },
+                        {
+                          operation: "eq",
+                          operands: [
+                            {
+                              word: 1,
+                              property: "A",
+                            },
+                            {
+                              literal: "Alex",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      and: [
+                        {
+                          operation: "eq",
+                          operands: [
+                            {
+                              word: 1,
+                              property: "A",
+                            },
+                            {
+                              literal: "Alex",
+                            },
+                          ],
+                        },
+                        {
+                          operation: "eq",
+                          operands: [
+                            {
+                              word: 1,
+                              property: "A",
+                            },
+                            {
+                              literal: "Alex",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          },
         },
         {
           type: "conditional",

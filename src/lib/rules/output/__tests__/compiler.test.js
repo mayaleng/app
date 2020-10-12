@@ -66,4 +66,46 @@ describe("Go template compiler", () => {
     const compiledTemplate = lib.compileOutputRule(rule);
     return expect(compiledTemplate).not.toBeNull();
   });
+
+  test("return a valid template when and with ors is included", () => {
+    expect.assertions(1);
+
+    const rule = {
+      conditional: {
+        or: [
+          {
+            or: [
+              {
+                operation: "eq",
+                operands: [
+                  {
+                    word: 1,
+                    property: "a",
+                  },
+                  {
+                    literal: true,
+                  },
+                ],
+              },
+              {
+                and: [
+                  {
+                    word: 1,
+                    property: "a",
+                  },
+                  {
+                    literal: true,
+                  },
+                ],
+              },
+            ],
+            value: "one",
+          },
+        ],
+      },
+    };
+    const compiledTemplate = lib.compileOutputRule(rule);
+    console.log(compiledTemplate, "1");
+    return expect(compiledTemplate).not.toBeNull();
+  });
 });
