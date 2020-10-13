@@ -22,10 +22,16 @@ class TranslationRule extends React.Component {
         {
           tag: "NOUN",
           type: "C",
+          properties: {
+            type: "C",
+          },
         },
         {
           tag: "NOUN",
           type: "P",
+          properties: {
+            type: "P",
+          },
         },
         {
           tag: "VERB",
@@ -38,10 +44,16 @@ class TranslationRule extends React.Component {
         {
           tag: "DET",
           type: "I",
+          properties: {
+            type: "I",
+          },
         },
         {
           tag: "NOUN",
           type: "C",
+          properties: {
+            type: "C",
+          },
         },
       ],
       output: [
@@ -60,7 +72,7 @@ class TranslationRule extends React.Component {
                           operands: [
                             {
                               word: 1,
-                              property: "A",
+                              property: "type",
                             },
                             {
                               literal: "Alex",
@@ -72,7 +84,7 @@ class TranslationRule extends React.Component {
                           operands: [
                             {
                               word: 1,
-                              property: "A",
+                              property: "type",
                             },
                             {
                               literal: "Alex",
@@ -88,7 +100,7 @@ class TranslationRule extends React.Component {
                           operands: [
                             {
                               word: 1,
-                              property: "A",
+                              property: "type",
                             },
                             {
                               literal: "Alex",
@@ -100,7 +112,7 @@ class TranslationRule extends React.Component {
                           operands: [
                             {
                               word: 1,
-                              property: "A",
+                              property: "type",
                             },
                             {
                               literal: "Alex",
@@ -203,6 +215,7 @@ class TranslationRule extends React.Component {
               <OutputRulesContainer
                 outputRules={this.state.outputRules}
                 onChage={this.handleOutputChanges}
+                words={this.state.constraints}
               />
             </center>
           </Grid>

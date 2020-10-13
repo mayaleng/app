@@ -56,7 +56,10 @@ class OuputRule extends React.Component {
             />
           )}
           {type === "conditional" && (
-            <ConditionalTemplate rule={this.props.rule} />
+            <ConditionalTemplate
+              rule={this.props.rule}
+              words={this.props.words}
+            />
           )}
         </CardContent>
       </Card>

@@ -110,6 +110,7 @@ class OutputRulesContainer extends React.Component {
               editorState={item.editorState}
               rule={item}
               type={item.type}
+              words={this.props.words}
             />
           </Box>
         ))}

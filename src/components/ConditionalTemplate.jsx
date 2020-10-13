@@ -10,7 +10,6 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import React from "react";
 import EditConditionalTemplate from "./EditConditionalTemplate";
-function compileCoditional(raw) {}
 
 class ConditionalTemplate extends React.Component {
   constructor() {
@@ -70,6 +69,7 @@ class ConditionalTemplate extends React.Component {
           <EditConditionalTemplate
             open={true}
             operand={or[this.state.openedIndex]}
+            words={this.props.words}
             onClose={this.handleCloseEdit}
           ></EditConditionalTemplate>
         )}

@@ -15,6 +15,7 @@ import {
   Input,
   Typography,
   Grid,
+  ListSubheader,
 } from "@material-ui/core";
 import React from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -23,8 +24,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 function EditConditionalTemplate(props) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
-  const { operand = {} } = props;
-
+  const { operand = {}, words = [] } = props;
+  console.log(words);
   const { or = [] } = operand;
 
   return (
@@ -39,13 +40,18 @@ function EditConditionalTemplate(props) {
     >
       <DialogTitle id="responsive-dialog-title">Rule setup</DialogTitle>
       <DialogContent style={{ flexGrow: 1 }}>
-        {or.map((operand) => {
+        {or.map((operand, index) => {
           const { and = [] } = operand;
 
           return (
-            <React.Fragment>
-              <Box mt={1}>
+            <Box mt={2}>
+              {index === 0 && (
                 <Typography align="left">Only set if...</Typography>
+              )}
+
+              {index > 0 && <Typography align="left">OR set if...</Typography>}
+
+              <Box mt={1}>
                 {and.map((condition) => {
                   const {
                     operation,
@@ -53,16 +59,35 @@ function EditConditionalTemplate(props) {
                   } = condition;
 
                   const [{ word, property }, { literal }] = operands;
+
+                  console.log(word, property);
                   return (
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={3}>
                         <FormControl fullWidth={true}>
                           <InputLabel>Choose a word...</InputLabel>
-                          <Select value={word}>
-                            <MenuItem value="1">Word 1</MenuItem>
-                            <MenuItem value="2">Word 2</MenuItem>
-                            <MenuItem value="3">Word 3</MenuItem>
-                            <MenuItem value="4">Word 4</MenuItem>
+                          <Select value={`${word}.${property}`}>
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            {words.map((word, wordIndex) => {
+                              return (
+                                <div>
+                                  <ListSubheader>
+                                    Word {wordIndex + 1} ({word.tag})
+                                  </ListSubheader>
+                                  {Object.keys(word.properties).map((key) => {
+                                    return (
+                                      <MenuItem
+                                        value={`${wordIndex + 1}.${key}`}
+                                      >
+                                        {key}
+                                      </MenuItem>
+                                    );
+                                  })}
+                                </div>
+                              );
+                            })}
                           </Select>
                         </FormControl>
                       </Grid>
@@ -102,10 +127,19 @@ function EditConditionalTemplate(props) {
                   >
                     + AND
                   </Button>
+                  {index === or.length - 1 && (
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      style={{ margin: "5px" }}
+                    >
+                      + OR
+                    </Button>
+                  )}
                 </Box>
               </Box>
               <Divider />
-            </React.Fragment>
+            </Box>
           );
         })}
         {/* <Box mt={1}>
