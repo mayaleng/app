@@ -1,8 +1,6 @@
-import React from 'react';
-import TranslationRule from '../components/TranslationRule';
+import React from "react";
+import TranslationRuleContainer from "../components/TranslationRuleContainer";
 
-const Rules = () => (
-  <TranslationRule></TranslationRule>
-);
+const Rules = () => <TranslationRuleContainer></TranslationRuleContainer>;
 
 export default Rules;

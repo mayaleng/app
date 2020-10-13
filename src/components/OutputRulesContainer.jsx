@@ -11,79 +11,43 @@ const CustomBox = forwardRef((props, ref) => (
   </Box>
 ));
 
-const TEMPLATE_VAR_REGEX = /\{\{[a-z0-9.]+\}\}/gi;
+const TEMPLATE_VAR_REGEX = /\{\{ *[a-z0-9.]+ *\}\}/gi;
 
 class OutputRulesContainer extends React.Component {
   constructor() {
     super();
 
-    const compositeDecorator = new CompositeDecorator([
+    this.state = {
+      items: [],
+    };
+
+    this.compositeDecorator = new CompositeDecorator([
       {
         strategy: this.templateStrategy,
         component: this.getStyledTemplate,
       },
     ]);
+  }
 
-    this.state = {
-      items: [
-        {
-          id: "item-1",
-          value: "",
-          editorState: EditorState.createWithContent(
-            ContentState.createFromText("{{a}} b"),
-            compositeDecorator
-          ),
-        },
-        {
-          id: "item-2",
-          value: "",
-          editorState: EditorState.createWithContent(
-            ContentState.createFromText("{{a}} b"),
-            compositeDecorator
-          ),
-        },
-        {
-          id: "item-3",
-          value: "",
-          editorState: EditorState.createWithContent(
-            ContentState.createFromText("{{a}} b"),
-            compositeDecorator
-          ),
-        },
-        {
-          id: "item-4",
-          value: "",
-          editorState: EditorState.createWithContent(
-            ContentState.createFromText("{{a}} b"),
-            compositeDecorator
-          ),
-        },
-        {
-          id: "item-5",
-          value: "",
-          editorState: EditorState.createWithContent(
-            ContentState.createFromText("{{a}} b"),
-            compositeDecorator
-          ),
-        },
-        {
-          id: "item-6",
-          value: "",
-          editorState: EditorState.createWithContent(
-            ContentState.createFromText("{{a}} b"),
-            compositeDecorator
-          ),
-        },
-        {
-          id: "item-7",
-          value: "",
-          editorState: EditorState.createWithContent(
-            ContentState.createFromText("{{a}} b"),
-            compositeDecorator
-          ),
-        },
-      ],
-    };
+  componentDidMount() {
+    const { outputRules = [] } = this.props;
+    const customOutputRules = outputRules.map((rule, index) => {
+      const customOutputRule = {
+        id: `item-${index}`,
+        type: rule.type,
+        ...rule,
+      };
+
+      if (rule.type === "literal") {
+        customOutputRule.editorState = EditorState.createWithContent(
+          ContentState.createFromText(rule.value),
+          this.compositeDecorator
+        );
+      }
+      return customOutputRule;
+    });
+
+    this.setState({ items: customOutputRules });
   }
 
   setList = (items) => {
@@ -144,6 +108,9 @@ class OutputRulesContainer extends React.Component {
             <OuputRule
               onChange={(editorState) => this.onChange(index, editorState)}
               editorState={item.editorState}
+              rule={item}
+              type={item.type}
+              words={this.props.words}
             />
           </Box>
         ))}

@@ -27,6 +27,10 @@ class OuputRule extends React.Component {
     });
   };
 
+  componentDidMount() {
+    this.setState({ type: this.props.type });
+  }
+
   render() {
     const { t } = this.props;
 
@@ -51,7 +55,12 @@ class OuputRule extends React.Component {
               editorState={this.props.editorState}
             />
           )}
-          {type === "conditional" && <ConditionalTemplate />}
+          {type === "conditional" && (
+            <ConditionalTemplate
+              rule={this.props.rule}
+              words={this.props.words}
+            />
+          )}
         </CardContent>
       </Card>
     );
