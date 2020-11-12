@@ -1,7 +1,7 @@
-const lib = require("../compiler");
+const lib = require('../compiler');
 
-describe("Go template compiler", () => {
-  test("return a template with success when the given struct is well formed", () => {
+describe('Go template compiler', () => {
+  test('return a template with success when the given struct is well formed', () => {
     expect.assertions(1);
 
     const rule = {
@@ -10,15 +10,15 @@ describe("Go template compiler", () => {
           {
             and: [
               {
-                operation: "StartsWithVowel",
+                operation: 'StartsWithVowel',
                 operands: [
                   {
-                    literal: "1",
+                    literal: '1',
                   },
                 ],
               },
               {
-                operation: "eq",
+                operation: 'eq',
                 operands: [
                   {
                     literal: 1,
@@ -29,24 +29,24 @@ describe("Go template compiler", () => {
                 ],
               },
             ],
-            value: "one",
+            value: 'one',
           },
           {
             and: [
               {
-                operation: "StartsWithVowel",
+                operation: 'StartsWithVowel',
                 operands: [
                   {
-                    literal: "1",
+                    literal: '1',
                   },
                 ],
               },
               {
-                operation: "eq",
+                operation: 'eq',
                 operands: [
                   {
                     word: 1,
-                    property: "intr",
+                    property: 'intr',
                   },
                   {
                     literal: true,
@@ -55,10 +55,10 @@ describe("Go template compiler", () => {
               },
               {
                 word: 1,
-                property: "attr",
+                property: 'attr',
               },
             ],
-            value: "two",
+            value: 'two',
           },
         ],
       },
@@ -67,7 +67,7 @@ describe("Go template compiler", () => {
     return expect(compiledTemplate).not.toBeNull();
   });
 
-  test("return a valid template when and with ors is included", () => {
+  test('return a valid template when and with ors is included', () => {
     expect.assertions(1);
 
     const rule = {
@@ -76,11 +76,11 @@ describe("Go template compiler", () => {
           {
             or: [
               {
-                operation: "eq",
+                operation: 'eq',
                 operands: [
                   {
                     word: 1,
-                    property: "a",
+                    property: 'a',
                   },
                   {
                     literal: true,
@@ -91,7 +91,7 @@ describe("Go template compiler", () => {
                 and: [
                   {
                     word: 1,
-                    property: "a",
+                    property: 'a',
                   },
                   {
                     literal: true,
@@ -99,13 +99,13 @@ describe("Go template compiler", () => {
                 ],
               },
             ],
-            value: "one",
+            value: 'one',
           },
         ],
       },
     };
     const compiledTemplate = lib.compileOutputRule(rule);
-    console.log(compiledTemplate, "1");
+    console.log(compiledTemplate, '1');
     return expect(compiledTemplate).not.toBeNull();
   });
 });

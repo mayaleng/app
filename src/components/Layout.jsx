@@ -1,39 +1,40 @@
-import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
-import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
-import Menu from "./Menu";
+import Menu from './Menu';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+    display: 'flex',
   },
   drawer: {
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       width: drawerWidth,
       flexShrink: 0,
     },
   },
   appBar: {
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up("md")]: {
-      display: "none",
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
     },
   },
   // necessary for content to be below app bar
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Layout = (props) => {
-  const { window } = props;
+  const { window, children } = props;
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -56,17 +57,16 @@ const Layout = (props) => {
     setMobileOpen(!mobileOpen);
   };
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  const container = window !== undefined ? () => window().document.body : undefined;
 
   const theme = useTheme();
 
   const drawer = (
-    <React.Fragment>
+    <>
       <div className={classes.toolbar} />
       <Divider />
-      <Menu></Menu>
-    </React.Fragment>
+      <Menu />
+    </>
   );
 
   return (
@@ -94,7 +94,7 @@ const Layout = (props) => {
           <Drawer
             container={container}
             variant="temporary"
-            anchor={theme.direction === "rtl" ? "right" : "left"}
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={mobileOpen}
             onClose={handleDrawerToggle}
             classes={{
@@ -121,10 +121,15 @@ const Layout = (props) => {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {props.children}
+        {children}
       </main>
     </div>
   );
+};
+
+Layout.propTypes = {
+  window: PropTypes.shape().isRequired,
+  children: PropTypes.shape().isRequired,
 };
 
 export default Layout;

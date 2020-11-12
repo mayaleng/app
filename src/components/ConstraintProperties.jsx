@@ -1,6 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { withTranslation } from "react-i18next";
+import PropTypes from 'prop-types';
+
+import { withTranslation } from 'react-i18next';
 
 import {
   CardContent,
@@ -9,14 +11,14 @@ import {
   InputLabel,
   Select,
   MenuItem,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const ALLOWED_VALUES = {
-  gender: ["M", "F"],
-  number: ["S", "P"],
-  person: ["1", "2", "3"],
-  tense: ["P", "F", "S"],
-  mode: ["I", "S", "M", "N", "G", "P"],
+  gender: ['M', 'F'],
+  number: ['S', 'P'],
+  person: ['1', '2', '3'],
+  tense: ['P', 'F', 'S'],
+  mode: ['I', 'S', 'M', 'N', 'G', 'P'],
 };
 
 function ConstraintProperties(props) {
@@ -26,7 +28,7 @@ function ConstraintProperties(props) {
     <CardContent>
       {Object.keys(properties).map((key) => (
         <Box mb={1} key={key}>
-          <FormControl fullWidth={true}>
+          <FormControl fullWidth>
             <InputLabel>{t(`constraints.properties.${key}`)}</InputLabel>
             <Select value={properties[key]} onChange={onChange} name={key}>
               <MenuItem key="" value="">
@@ -44,5 +46,11 @@ function ConstraintProperties(props) {
     </CardContent>
   );
 }
+
+ConstraintProperties.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  properties: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  t: PropTypes.func.isRequired,
+};
 
 export default withTranslation()(ConstraintProperties);

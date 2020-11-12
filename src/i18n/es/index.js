@@ -50,11 +50,11 @@ const translations = {
   },
   output: {
     types: {
-      conditional: "condicional",
-      literal: "literal",
+      conditional: 'condicional',
+      literal: 'literal',
     },
-    conditional: "salida condicional"
-  }
+    conditional: 'salida condicional',
+  },
 };
 
 export default translations;

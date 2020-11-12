@@ -35,17 +35,17 @@ function compileOutputRule(outputRule = {}) {
     return `{{if ${bodyIf}}}${value}`;
   });
 
-  return ifs.join("");
+  return ifs.join('');
 }
 
 function compileOperand(operand = {}) {
   const {
     and,
     or,
-    operation = "",
+    operation = '',
     operands = [],
     word = 0,
-    property = "",
+    property = '',
     literal,
   } = operand;
 
@@ -69,32 +69,26 @@ function compileOperand(operand = {}) {
     return;
   }
 
-  return `(${operation} ${compileOperands(operands).join(" ")})`;
+  return `(${operation} ${compileOperands(operands).join(' ')})`;
 }
 
 function compileOr(or = []) {
-  const compiledOr = or.map((operand) => {
-    return compileOperand(operand);
-  });
+  const compiledOr = or.map((operand) => compileOperand(operand));
 
-  return `(or ${compiledOr.join(" ")})`;
+  return `(or ${compiledOr.join(' ')})`;
 }
 
 function compileAnd(and = []) {
-  const compiledAnd = and.map((operand) => {
-    return compileOperand(operand);
-  });
-  return `(and ${compiledAnd.join(" ")})`;
+  const compiledAnd = and.map((operand) => compileOperand(operand));
+  return `(and ${compiledAnd.join(' ')})`;
 }
 
-function compileWord({ word = 0, property = "" }) {
+function compileWord({ word = 0, property = '' }) {
   return `.Word${word}.Properties.${property}`;
 }
 
 function compileOperands(operands = []) {
-  const compiledOperands = operands.map((operand) => {
-    return compileOperand(operand);
-  });
+  const compiledOperands = operands.map((operand) => compileOperand(operand));
 
   return compiledOperands;
 }

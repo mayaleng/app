@@ -1,64 +1,66 @@
-import React from "react";
-import { Grid, Link, Breadcrumbs, Typography } from "@material-ui/core";
-import { withTranslation } from "react-i18next";
-import ConstraintsContainer from "./ConstraintsContainer";
-import OutputRulesContainer from "./OutputRulesContainer";
+import React from 'react';
+import {
+  Grid, Link, Breadcrumbs, Typography,
+} from '@material-ui/core';
+import { withTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
+import ConstraintsContainer from './ConstraintsContainer';
+import OutputRulesContainer from './OutputRulesContainer';
 
 class TranslationRule extends React.Component {
   constructor() {
     super();
     this.state = {
       constraints: {},
-      output: {},
     };
   }
 
   componentDidMount() {
     const rule = {
-      source_language: "espaol",
-      target_language: "kaqchikel",
-      pattern: "NOUN,NOUN,VERB,DET,NOUN",
+      source_language: 'espaol',
+      target_language: 'kaqchikel',
+      pattern: 'NOUN,NOUN,VERB,DET,NOUN',
       details: [
         {
-          tag: "NOUN",
-          type: "C",
+          tag: 'NOUN',
+          type: 'C',
           properties: {
-            type: "C",
+            type: 'C',
           },
         },
         {
-          tag: "NOUN",
-          type: "P",
+          tag: 'NOUN',
+          type: 'P',
           properties: {
-            type: "P",
+            type: 'P',
           },
         },
         {
-          tag: "VERB",
-          type: "M",
+          tag: 'VERB',
+          type: 'M',
           properties: {
-            tense: "S",
-            person: "3",
+            tense: 'S',
+            person: '3',
           },
         },
         {
-          tag: "DET",
-          type: "I",
+          tag: 'DET',
+          type: 'I',
           properties: {
-            type: "I",
+            type: 'I',
           },
         },
         {
-          tag: "NOUN",
-          type: "C",
+          tag: 'NOUN',
+          type: 'C',
           properties: {
-            type: "C",
+            type: 'C',
           },
         },
       ],
       output: [
         {
-          type: "conditional",
+          type: 'conditional',
           value: '{{ if (eq .Word3.p.tense "S") }}x{{end}}',
           raw: {
             conditional: {
@@ -68,26 +70,26 @@ class TranslationRule extends React.Component {
                     {
                       and: [
                         {
-                          operation: "eq",
+                          operation: 'eq',
                           operands: [
                             {
                               word: 1,
-                              property: "type",
+                              property: 'type',
                             },
                             {
-                              literal: "Alex",
+                              literal: 'Alex',
                             },
                           ],
                         },
                         {
-                          operation: "eq",
+                          operation: 'eq',
                           operands: [
                             {
                               word: 1,
-                              property: "type",
+                              property: 'type',
                             },
                             {
-                              literal: "Alex",
+                              literal: 'Alex',
                             },
                           ],
                         },
@@ -96,26 +98,26 @@ class TranslationRule extends React.Component {
                     {
                       and: [
                         {
-                          operation: "eq",
+                          operation: 'eq',
                           operands: [
                             {
                               word: 1,
-                              property: "type",
+                              property: 'type',
                             },
                             {
-                              literal: "Alex",
+                              literal: 'Alex',
                             },
                           ],
                         },
                         {
-                          operation: "eq",
+                          operation: 'eq',
                           operands: [
                             {
                               word: 1,
-                              property: "type",
+                              property: 'type',
                             },
                             {
-                              literal: "Alex",
+                              literal: 'Alex',
                             },
                           ],
                         },
@@ -128,45 +130,45 @@ class TranslationRule extends React.Component {
           },
         },
         {
-          type: "conditional",
+          type: 'conditional',
           value:
             '{{ if and (eq .Word3.Properties.person "3") (eq .Word3.Properties.number "S") ( .Word3.Properties.tr ) }}u{{end}}',
         },
         {
-          type: "literal",
-          value: "{{ .Word3.Translation }}",
+          type: 'literal',
+          value: '{{ .Word3.Translation }}',
         },
         {
-          type: "literal",
-          value: " ",
+          type: 'literal',
+          value: ' ',
         },
         {
-          type: "literal",
-          value: "{{ .Word4.Translation }}",
+          type: 'literal',
+          value: '{{ .Word4.Translation }}',
         },
         {
-          type: "literal",
-          value: " ",
+          type: 'literal',
+          value: ' ',
         },
         {
-          type: "literal",
-          value: "{{ .Word5.Translation }}",
+          type: 'literal',
+          value: '{{ .Word5.Translation }}',
         },
         {
-          type: "literal",
-          value: " ",
+          type: 'literal',
+          value: ' ',
         },
         {
-          type: "literal",
-          value: "{{ .Word1.Translation }}",
+          type: 'literal',
+          value: '{{ .Word1.Translation }}',
         },
         {
-          type: "literal",
-          value: " ",
+          type: 'literal',
+          value: ' ',
         },
         {
-          type: "literal",
-          value: "{{ .Word2.Translation }}",
+          type: 'literal',
+          value: '{{ .Word2.Translation }}',
         },
       ],
     };
@@ -174,20 +176,22 @@ class TranslationRule extends React.Component {
     this.setState({ constraints: rule.details, outputRules: rule.output });
   }
 
-  handleConstraintChanges = (newConstraints) => {
+  handleConstraintChanges(newConstraints) {
     this.set({ constraints: newConstraints });
-  };
+  }
 
-  handleOutputChanges = (newOutputRules) => {
+  handleOutputChanges(newOutputRules) {
     this.set({ outputRules: newOutputRules });
-  };
+  }
 
   render() {
     const { t } = this.props;
+    const { constraints, outputRules } = this.state;
+
     return (
-      <React.Fragment>
+      <>
         <Typography variant="h1" component="h1">
-          {t("rules.new.title")}
+          {t('rules.new.title')}
         </Typography>
 
         <Breadcrumbs aria-label="breadcrumb">
@@ -204,7 +208,7 @@ class TranslationRule extends React.Component {
             <center>
               <h3>Constraints</h3>
               <ConstraintsContainer
-                constraints={this.state.constraints}
+                constraints={constraints}
                 onChage={this.handleConstraintChanges}
               />
             </center>
@@ -213,16 +217,20 @@ class TranslationRule extends React.Component {
             <center>
               <h3>Output</h3>
               <OutputRulesContainer
-                outputRules={this.state.outputRules}
+                outputRules={outputRules}
                 onChage={this.handleOutputChanges}
-                words={this.state.constraints}
+                words={constraints}
               />
             </center>
           </Grid>
         </Grid>
-      </React.Fragment>
+      </>
     );
   }
 }
+
+TranslationRule.propTypes = {
+  t: PropTypes.func.isRequired,
+};
 
 export default withTranslation()(TranslationRule);

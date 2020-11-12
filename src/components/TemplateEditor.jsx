@@ -1,16 +1,24 @@
-import React from "react";
-import { Editor } from "draft-js";
+import React from 'react';
+import { Editor } from 'draft-js';
+import PropTypes from 'prop-types';
 
-class TemplateEditor extends React.Component {
-  render() {
-    return (
-      <Editor
-        editorState={this.props.editorState}
-        onChange={this.props.onChange}
-        spellCheck={true}
-      />
-    );
-  }
-}
+const TemplateEditor = (props) => {
+  const {
+    editorState,
+    onChange,
+  } = props;
+  return (
+    <Editor
+      editorState={editorState}
+      onChange={onChange}
+      spellCheck
+    />
+  );
+};
+
+TemplateEditor.propTypes = {
+  editorState: PropTypes.shape().isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default TemplateEditor;

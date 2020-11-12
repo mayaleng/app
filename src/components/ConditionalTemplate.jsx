@@ -5,11 +5,11 @@ import {
   Grid,
   IconButton,
   InputBase,
-} from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-
-import React from "react";
-import EditConditionalTemplate from "./EditConditionalTemplate";
+} from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import PropTypes from 'prop-types';
+import React from 'react';
+import EditConditionalTemplate from './EditConditionalTemplate';
 
 class ConditionalTemplate extends React.Component {
   constructor() {
@@ -19,26 +19,31 @@ class ConditionalTemplate extends React.Component {
     };
   }
 
-  openEditForm = (index) => {
-    this.setState({
-      openedIndex: index,
-    });
-  };
-
-  handleCloseEdit = () => {
+  handleCloseEdit() {
     this.setState({
       openedIndex: -1,
     });
-  };
+  }
+
+  openEditForm(index) {
+    this.setState({
+      openedIndex: index,
+    });
+  }
 
   render() {
     const {
-      raw = {
-        conditional: {
-          or: [],
+      rule: {
+        raw = {
+          conditional: {
+            or: [],
+          },
         },
       },
-    } = this.props.rule;
+      words,
+    } = this.props;
+
+    const { openedIndex } = this.state;
 
     const {
       conditional: { or = [] },
@@ -52,7 +57,7 @@ class ConditionalTemplate extends React.Component {
               readOnly
               placeholder={`Path ${index + 1}`}
               style={{ marginLeft: 1 }}
-            ></InputBase>
+            />
             <IconButton
               style={{ marginRight: 1 }}
               onClick={() => this.openEditForm(index)}
@@ -65,17 +70,27 @@ class ConditionalTemplate extends React.Component {
         <FormControl>
           <Button variant="outlined">Add new path</Button>
         </FormControl>
-        {this.state.openedIndex >= 0 && (
+        {openedIndex >= 0 && (
           <EditConditionalTemplate
-            open={true}
-            operand={or[this.state.openedIndex]}
-            words={this.props.words}
+            open
+            operand={or[openedIndex]}
+            words={words}
             onClose={this.handleCloseEdit}
-          ></EditConditionalTemplate>
+          />
         )}
       </Grid>
     );
   }
 }
+
+ConditionalTemplate.defaultProps = {
+  rule: {},
+  words: [],
+};
+
+ConditionalTemplate.propTypes = {
+  rule: PropTypes.shape,
+  words: PropTypes.arrayOf(PropTypes.shape),
+};
 
 export default ConditionalTemplate;
