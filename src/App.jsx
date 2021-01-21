@@ -1,8 +1,25 @@
 import React from 'react';
 
-import EditConditionalTemplate from './components/EditConditionalTemplate';
+import WordSelector from './components/WordSelector';
 
 function App() {
+  const [value, setValue] = React.useState('');
+
+  const words = [{
+    tag: 'verb',
+    type: 'M',
+    properties: {
+      tense: 's',
+      person: '3',
+    },
+  }, {
+    tag: 'noun',
+    type: 'c',
+    properties: {
+      type: 'c',
+    },
+  }];
+
   return (
     // <Provider store={store}>
     //   <BrowserRouter>
@@ -15,111 +32,16 @@ function App() {
     //     </Layout>
     //   </BrowserRouter>
     // </Provider>
-    <EditConditionalTemplate
-      onClose={() => {}}
-      operand={{
-        or: [
-          {
-            or: [
-              {
-                and: [
-                  {
-                    operation: 'eq',
-                    operands: [
-                      {
-                        word: 1,
-                        property: 'type',
-                      },
-                      {
-                        literal: 'Alex',
-                      },
-                    ],
-                  },
-                  {
-                    operation: 'eq',
-                    operands: [
-                      {
-                        word: 1,
-                        property: 'type',
-                      },
-                      {
-                        literal: 'Alex',
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                and: [
-                  {
-                    operation: 'eq',
-                    operands: [
-                      {
-                        word: 1,
-                        property: 'type',
-                      },
-                      {
-                        literal: 'Alex',
-                      },
-                    ],
-                  },
-                  {
-                    operation: 'eq',
-                    operands: [
-                      {
-                        word: 1,
-                        property: 'type',
-                      },
-                      {
-                        literal: 'Alex',
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
+    <WordSelector
+      words={words}
+      value={value}
+      onChange={(e) => {
+        if (!e.target.value) {
+          return;
+        }
+
+        setValue(e.target.value);
       }}
-      words={[
-        {
-          tag: 'NOUN',
-          type: 'C',
-          properties: {
-            type: 'C',
-          },
-        },
-        {
-          tag: 'NOUN',
-          type: 'P',
-          properties: {
-            type: 'P',
-          },
-        },
-        {
-          tag: 'VERB',
-          type: 'M',
-          properties: {
-            tense: 'S',
-            person: '3',
-          },
-        },
-        {
-          tag: 'DET',
-          type: 'I',
-          properties: {
-            type: 'I',
-          },
-        },
-        {
-          tag: 'NOUN',
-          type: 'C',
-          properties: {
-            type: 'C',
-          },
-        },
-      ]}
-      open
     />
   );
 }

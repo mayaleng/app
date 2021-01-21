@@ -1,0 +1,155 @@
+{
+    "source_language": "espaol",
+    "target_language": "kaqchikel",
+    "pattern": "NOUN,NOUN,VERB,DET,NOUN",
+    "details": [
+        {
+            "tag": "NOUN",
+            "type": "C",
+            "properties": {
+                "type": "C"
+            }
+        },
+        {
+            "tag": "NOUN",
+            "type": "P",
+            "properties": {
+                "type": "P"
+            }
+        },
+        {
+            "tag": "VERB",
+            "type": "M",
+            "properties": {
+                "tense": "S",
+                "person": "3"
+            }
+        },
+        {
+            "tag": "DET",
+            "type": "I",
+            "properties": {
+                "type": "I"
+            }
+        },
+        {
+            "tag": "NOUN",
+            "type": "C",
+            "properties": {
+                "type": "C"
+            }
+        }
+    ],
+    "output": [
+        {
+            "type": "conditional",
+            "value": "{{ if (eq .Word3.p.tense \"S\") }}x{{end}}",
+            "raw": {
+                "conditional": {
+                    "or": [
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        {
+                                            "operation": "eq",
+                                            "operands": [
+                                                {
+                                                    "word": 1,
+                                                    "property": "type"
+                                                },
+                                                {
+                                                    "literal": "Alex"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "operation": "eq",
+                                            "operands": [
+                                                {
+                                                    "word": 1,
+                                                    "property": "type"
+                                                },
+                                                {
+                                                    "literal": "Alex"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        {
+                                            "operation": "eq",
+                                            "operands": [
+                                                {
+                                                    "word": 1,
+                                                    "property": "type"
+                                                },
+                                                {
+                                                    "literal": "Alex"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "operation": "eq",
+                                            "operands": [
+                                                {
+                                                    "word": 1,
+                                                    "property": "type"
+                                                },
+                                                {
+                                                    "literal": "Alex"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "conditional",
+            "value": "{{ if and (eq .Word3.Properties.person \"3\") (eq .Word3.Properties.number \"S\") ( .Word3.Properties.tr ) }}u{{end}}"
+        },
+        {
+            "type": "literal",
+            "value": "{{ .Word3.Translation }}"
+        },
+        {
+            "type": "literal",
+            "value": " "
+        },
+        {
+            "type": "literal",
+            "value": "{{ .Word4.Translation }}"
+        },
+        {
+            "type": "literal",
+            "value": " "
+        },
+        {
+            "type": "literal",
+            "value": "{{ .Word5.Translation }}"
+        },
+        {
+            "type": "literal",
+            "value": " "
+        },
+        {
+            "type": "literal",
+            "value": "{{ .Word1.Translation }}"
+        },
+        {
+            "type": "literal",
+            "value": " "
+        },
+        {
+            "type": "literal",
+            "value": "{{ .Word2.Translation }}"
+        }
+    ]
+}

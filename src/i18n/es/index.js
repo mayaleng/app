@@ -55,6 +55,18 @@ const translations = {
     },
     conditional: 'salida condicional',
   },
+  WordSelector: {
+    word: 'palabra',
+    properties: {
+      tense: 'tiempo',
+      person: 'persona',
+      type: 'tipo',
+    },
+    tag: {
+      noun: 'sustantivo',
+      verb: 'verbo',
+    },
+  },
 };
 
 export default translations;
