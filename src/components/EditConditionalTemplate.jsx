@@ -156,7 +156,7 @@ function EditConditionalTemplate(props) {
 
 EditConditionalTemplate.propTypes = {
   onClose: ProptTypes.func.isRequired,
-  operand: ProptTypes.shape.isRequired,
+  operand: ProptTypes.shape().isRequired,
   words: ProptTypes.arrayOf(ProptTypes.shape).isRequired,
   open: ProptTypes.bool.isRequired,
 };
