@@ -67,6 +67,11 @@ const translations = {
       verb: 'verbo',
     },
   },
+  OperationSelector: {
+    eq: 'igual a',
+    startsWith: 'empieza con',
+    endsWith: 'termina con',
+  },
 };
 
 export default translations;
