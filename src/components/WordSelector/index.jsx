@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  FormControl, ListSubheader, MenuItem, Select,
+  FormControl, MenuItem, Select,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -10,27 +10,18 @@ const WordSelector = ({ words = [], onChange, value }) => {
 
   return (
     <FormControl fullWidth>
-      <Select value={value} onChange={onChange}>
-        {words.reduce((acc, word, index) => {
-          const prefix = `w${index}`;
-          const subTitle = `${t('WordSelector.word')} #${index + 1} (${t(`WordSelector.tag.${word.tag}`)})`;
-          const header = (
-            <ListSubheader key={prefix}>
-              {subTitle}
-            </ListSubheader>
+      <Select value={value} onChange={onChange} fullWidth>
+        {words.map((word, index) => {
+          const key = `w${index}`;
+
+          return (
+            <MenuItem
+              key={key}
+              value={key}
+            >
+              {`${t('WordSelector.word')} #${index + 1} (${t(`WordSelector.tag.${word.tag}`)})`}
+            </MenuItem>
           );
-
-          const items = Object.keys(word.properties)
-            .map((propertyName) => (
-              <MenuItem
-                key={`${prefix}${propertyName}`}
-                value={propertyName}
-              >
-                {t(`WordSelector.properties.${propertyName}`)}
-              </MenuItem>
-            ));
-
-          return [...acc, header, ...items];
         }, [])}
       </Select>
     </FormControl>

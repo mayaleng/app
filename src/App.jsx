@@ -2,7 +2,7 @@ import React from 'react';
 
 import WordSelector from './components/WordSelector';
 
-function App() {
+const App = () => {
   const [value, setValue] = React.useState('');
 
   const words = [{
@@ -21,17 +21,6 @@ function App() {
   }];
 
   return (
-    // <Provider store={store}>
-    //   <BrowserRouter>
-    //     <Layout>
-    //       <Switch>
-    //         <Route exact path="/" component={Home} />
-    //         <Route exact path="/rules" component={Rules} />
-    //         <Route component={NotFound} />
-    //       </Switch>
-    //     </Layout>
-    //   </BrowserRouter>
-    // </Provider>
     <WordSelector
       words={words}
       value={value}
@@ -44,6 +33,6 @@ function App() {
       }}
     />
   );
-}
+};
 
 export default App;
