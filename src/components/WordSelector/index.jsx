@@ -13,13 +13,14 @@ const WordSelector = ({ words = [], onChange, value }) => {
       <Select value={value} onChange={onChange} fullWidth>
         {words.map((word, index) => {
           const key = `w${index}`;
+          const tag = word.tag.toLowerCase();
 
           return (
             <MenuItem
               key={key}
               value={key}
             >
-              {`${t('WordSelector.word')} #${index + 1} (${t(`WordSelector.tag.${word.tag}`)})`}
+              {`${t('WordSelector.word')} #${index + 1} (${t(`WordSelector.tag.${tag}`)})`}
             </MenuItem>
           );
         }, [])}

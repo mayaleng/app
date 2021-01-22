@@ -1,19 +1,8 @@
 import React from 'react';
-import OperationSelector from './components/OperationSelector';
+import Operation from './components/Operation';
 
-const App = () => {
-  const [value, setValue] = React.useState('');
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  return (
-    <OperationSelector
-      value={value}
-      onChange={handleChange}
-    />
-  );
-};
+const App = () => (
+  <Operation />
+);
 
 export default App;
