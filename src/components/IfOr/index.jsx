@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Box } from '@material-ui/core';
 import IfAnd from '../IfAnd';
 
 const IfOr = ({ words = [] }) => {
@@ -13,9 +13,11 @@ const IfOr = ({ words = [] }) => {
       })}
 
       <Grid container>
-        <Button variant="contained" color="primary" onClick={() => { setOperands([...operands, 1]); }}>
-          OR +
-        </Button>
+        <Box mt={2}>
+          <Button variant="contained" color="primary" onClick={() => { setOperands([...operands, 1]); }}>
+            OR +
+          </Button>
+        </Box>
       </Grid>
     </Grid>
   );

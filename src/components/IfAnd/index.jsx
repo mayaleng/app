@@ -1,4 +1,4 @@
-import { Button, Grid } from '@material-ui/core';
+import { Button, Box, Grid } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
 import IfOperand from '../IfOperand';
@@ -13,7 +13,18 @@ const IfAnd = ({ words = [] }) => {
         return <IfOperand key={key} words={words} onDelete={() => {}} />;
       })}
       <Grid item xs={12} md={12}>
-        <Button variant="contained" color="primary" onClick={() => { setOperands([...operands, 1]); }}>AND +</Button>
+        <Box mt={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={(e) => {
+              e.preventDefault();
+              setOperands([...operands, 1]);
+            }}
+          >
+            AND +
+          </Button>
+        </Box>
       </Grid>
     </Grid>
   );

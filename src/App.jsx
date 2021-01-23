@@ -1,5 +1,5 @@
 import React from 'react';
-import Conditional from './components/Conditional';
+import ConditionalDialog from './components/ConditionalDialog';
 
 const words = [
   {
@@ -19,7 +19,7 @@ const words = [
 ];
 
 const App = () => (
-  <Conditional words={words} />
+  <ConditionalDialog words={words} open />
 );
 
 export default App;
