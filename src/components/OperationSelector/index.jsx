@@ -11,7 +11,14 @@ const OperationSelector = ({ value, onChange }) => {
   return (
     <FormControl fullWidth>
       <Select value={value} onChange={onChange} fullWidth>
-        {operations.map((operation) => <MenuItem value={operation}>{t(`OperationSelector.${operation}`)}</MenuItem>)}
+        {operations.map((operation, index) => {
+          const key = `${operation}${index}`;
+          return (
+            <MenuItem key={key} value={operation}>
+              {t(`OperationSelector.${operation}`)}
+            </MenuItem>
+          );
+        })}
       </Select>
     </FormControl>
 
