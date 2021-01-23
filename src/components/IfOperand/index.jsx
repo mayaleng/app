@@ -4,19 +4,35 @@ import { DeleteOutline } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import WordSelector from '../WordSelector';
 import OperationSelector from '../OperationSelector';
+import WordPropSelector from '../WordPropSelector';
 
 const IfOperand = ({ words = [], onDelete }) => {
   const [word, setWord] = React.useState('');
   const [operation, setOperation] = React.useState('');
   const [operator, setOperator] = React.useState('');
+  const [wordPropery, setWordPropery] = React.useState('');
+
+  const selectedWordIndex = parseInt(word.replace('w', ''), 10);
+
+  const selectedWordProps = selectedWordIndex >= 0 ? words[selectedWordIndex].properties : [];
 
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} sm={3} md={3}>
-        <WordSelector words={words} value={word} onChange={(e) => setWord(e.target.value)} />
+        <WordSelector
+          words={words}
+          value={word}
+          onChange={(e) => {
+            setWord(e.target.value);
+          }}
+        />
       </Grid>
-      <Grid item xs={12} sm={3} md={3}>
-        <WordSelector words={words} value={word} onChange={(e) => setWord(e.target.value)} />
+      <Grid item xs={12} sm={12} md={3}>
+        <WordPropSelector
+          wordProps={selectedWordProps}
+          value={wordPropery}
+          onChange={(e) => setWordPropery(e.target.value)}
+        />
       </Grid>
       <Grid item xs={12} sm={2} md={2}>
         <OperationSelector value={operation} onChange={(e) => setOperation(e.target.value)} />
@@ -26,7 +42,7 @@ const IfOperand = ({ words = [], onDelete }) => {
       </Grid>
       <Grid item xs={12} sm={1} md={1}>
         <center>
-          <Button fullWidth onClick={() => { onDelete(); }}><DeleteOutline /></Button>
+          <Button fullWidth onClick={() => { onDelete(); }}><DeleteOutline color="secondary" /></Button>
         </center>
       </Grid>
     </Grid>
