@@ -1,5 +1,5 @@
 import React from 'react';
-import ConditionalDialog from './components/ConditionalDialog';
+import PathEditor from './components/PathEditor';
 
 const words = [
   {
@@ -19,7 +19,7 @@ const words = [
 ];
 
 const App = () => (
-  <ConditionalDialog words={words} open />
+  <PathEditor words={words} open />
 );
 
 export default App;
