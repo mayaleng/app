@@ -16,17 +16,17 @@ const PathEditor = ({ words = [] }) => {
         const key = `p${index}`;
         return (
           <Grid container key={key}>
-            <Grid item xs={10}>
+            <Grid item xs={8}>
               <Typography>
                 {`Alternativa #${index + 1}`}
               </Typography>
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={2}>
               <Button>
                 <Delete color="secondary" />
               </Button>
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={2}>
               <Button
                 onClick={() => {
                   setDialogOpened(true);
@@ -51,6 +51,7 @@ const PathEditor = ({ words = [] }) => {
         </FormControl>
       </Grid>
 
+      {dialogOpened && (
       <ConditionalDialog
         words={words}
         open={dialogOpened}
@@ -61,6 +62,7 @@ const PathEditor = ({ words = [] }) => {
           setDialogOpened(false);
         }}
       />
+      )}
     </Grid>
   );
 };

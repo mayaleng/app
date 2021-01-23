@@ -1,5 +1,5 @@
 import React from 'react';
-import PathEditor from './components/PathEditor';
+import OutputWord from './components/OutputWord';
 
 const words = [
   {
@@ -19,7 +19,7 @@ const words = [
 ];
 
 const App = () => (
-  <PathEditor words={words} open />
+  <OutputWord words={words} />
 );
 
 export default App;
