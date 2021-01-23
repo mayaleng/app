@@ -1,5 +1,5 @@
 import React from 'react';
-import IfOr from './components/IfOr';
+import Conditional from './components/Conditional';
 
 const words = [
   {
@@ -19,7 +19,7 @@ const words = [
 ];
 
 const App = () => (
-  <IfOr words={words} />
+  <Conditional words={words} />
 );
 
 export default App;

@@ -1,7 +1,7 @@
 import { Button, Grid } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
-import IfCondition from '../IfCondition';
+import IfOperand from '../IfOperand';
 
 const IfAnd = ({ words = [] }) => {
   const [operands, setOperands] = React.useState([]);
@@ -10,9 +10,9 @@ const IfAnd = ({ words = [] }) => {
     <Grid container>
       {operands.map((operand, index) => {
         const key = `op${index}`;
-        return <IfCondition key={key} words={words} onDelete={() => {}} />;
+        return <IfOperand key={key} words={words} onDelete={() => {}} />;
       })}
-      <Grid item={12}>
+      <Grid item xs={12} md={12}>
         <Button variant="contained" color="primary" onClick={() => { setOperands([...operands, 1]); }}>AND +</Button>
       </Grid>
     </Grid>

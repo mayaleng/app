@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import WordSelector from '../WordSelector';
 import OperationSelector from '../OperationSelector';
 
-const IfCondition = ({ words = [], onDelete }) => {
+const IfOperand = ({ words = [], onDelete }) => {
   const [word, setWord] = React.useState('');
   const [operation, setOperation] = React.useState('');
   const [operator, setOperator] = React.useState('');
@@ -33,9 +33,9 @@ const IfCondition = ({ words = [], onDelete }) => {
   );
 };
 
-IfCondition.propTypes = {
+IfOperand.propTypes = {
   words: PropTypes.arrayOf(PropTypes.shape).isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
-export default IfCondition;
+export default IfOperand;
