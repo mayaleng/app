@@ -16,17 +16,17 @@ const PathEditor = ({ words = [] }) => {
         const key = `p${index}`;
         return (
           <Grid container key={key}>
-            <Grid item xs={8}>
+            <Grid item xs={6}>
               <Typography>
                 {`Alternativa #${index + 1}`}
               </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <Button>
                 <Delete color="secondary" />
               </Button>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <Button
                 onClick={() => {
                   setDialogOpened(true);

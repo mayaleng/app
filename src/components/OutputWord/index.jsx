@@ -3,7 +3,6 @@ import {
   Card,
   FormControl,
   TextField,
-  CardHeader,
   Switch,
   Typography,
   Grid,
@@ -17,20 +16,17 @@ const OutputWord = ({ words = [] }) => {
 
   return (
     <Card>
-      <CardHeader
-        title=""
-        action={(
-          <Typography component="div">
-            <Grid component="label" container alignItems="center" spacing={1}>
-              <Grid item>Literal</Grid>
-              <Grid item>
-                <Switch color="primary" value={isConditional} onChange={() => { setIsConditional(!isConditional); }} />
-              </Grid>
-              <Grid item>Condicional</Grid>
+      <CardContent>
+        <Typography component="div">
+          <Grid component="label" container alignItems="center" spacing={1}>
+            <Grid item>Literal</Grid>
+            <Grid item>
+              <Switch color="primary" value={isConditional} onChange={() => { setIsConditional(!isConditional); }} />
             </Grid>
-          </Typography>
-        )}
-      />
+            <Grid item>Condicional</Grid>
+          </Grid>
+        </Typography>
+      </CardContent>
       <CardContent>
         <FormControl fullWidth>
           {!isConditional && <TextField label="Palabra literal" />}
