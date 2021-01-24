@@ -1,5 +1,5 @@
 import React from 'react';
-import OutputWord from './components/OutputWord';
+import OutputWords from './components/OutputWords';
 
 const words = [
   {
@@ -19,7 +19,7 @@ const words = [
 ];
 
 const App = () => (
-  <OutputWord words={words} />
+  <OutputWords words={words} />
 );
 
 export default App;
