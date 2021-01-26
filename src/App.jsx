@@ -7,6 +7,7 @@ const words = [
     type: 'C',
     properties: {
       type: 'C',
+      tense: 'P',
     },
   },
   {
