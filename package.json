@@ -22,7 +22,9 @@
     "react-scripts": "^4.0.1",
     "react-sortablejs": "^2.1.0",
     "redux": "^4.0.5",
-    "sortablejs": "^1.13.0"
+    "sortablejs": "^1.13.0",
+    "styled-components": "^5.2.1",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -62,5 +64,8 @@
     "jest": "26.6.0",
     "prettier": "2.1.2",
     "typescript": "^3.9.7"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }

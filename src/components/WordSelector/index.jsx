@@ -5,13 +5,13 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-const WordSelector = ({ words = [], onChange, value }) => {
+const WordSelector = ({ inputWords = [], onChange, value }) => {
   const { t } = useTranslation();
 
   return (
     <FormControl fullWidth>
       <Select value={value} onChange={onChange} fullWidth>
-        {words.map((word, index) => {
+        {inputWords.map((word, index) => {
           const key = `w${index}`;
           const tag = word.tag.toLowerCase();
 
@@ -30,7 +30,7 @@ const WordSelector = ({ words = [], onChange, value }) => {
 };
 
 WordSelector.propTypes = {
-  words: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

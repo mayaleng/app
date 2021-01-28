@@ -1,5 +1,5 @@
 import React from 'react';
-import OutputWords from './components/OutputWords';
+import RuleEditor from './components/RuleEditor';
 
 const defaultWords = [
   {
@@ -62,8 +62,14 @@ const defaultWords = [
 ];
 
 const App = () => {
-  const [words, setWords] = React.useState(defaultWords);
-  return <OutputWords words={words} onChange={(newWords) => { setWords(newWords); }} />;
+  const [outputs, setOutputs] = React.useState([]);
+  return (
+    <RuleEditor
+      inputWords={defaultWords}
+      outputs={outputs}
+      onOutputsChange={(newWords) => { setOutputs(newWords); }}
+    />
+  );
 };
 
 export default App;

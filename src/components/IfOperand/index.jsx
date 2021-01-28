@@ -6,7 +6,7 @@ import WordSelector from '../WordSelector';
 import OperationSelector from '../OperationSelector';
 import WordPropSelector from '../WordPropSelector';
 
-const IfOperand = ({ words = [], onDelete }) => {
+const IfOperand = ({ inputWords = [], onDelete }) => {
   const [word, setWord] = React.useState('');
   const [operation, setOperation] = React.useState('');
   const [operator, setOperator] = React.useState('');
@@ -14,13 +14,13 @@ const IfOperand = ({ words = [], onDelete }) => {
 
   const selectedWordIndex = parseInt(word.replace('w', ''), 10);
 
-  const selectedWordProps = selectedWordIndex >= 0 ? words[selectedWordIndex].properties : [];
+  const selectedWordProps = selectedWordIndex >= 0 ? inputWords[selectedWordIndex].properties : [];
 
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} sm={3} md={3}>
         <WordSelector
-          words={words}
+          inputWords={inputWords}
           value={word}
           onChange={(e) => {
             setWord(e.target.value);
@@ -50,7 +50,7 @@ const IfOperand = ({ words = [], onDelete }) => {
 };
 
 IfOperand.propTypes = {
-  words: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
