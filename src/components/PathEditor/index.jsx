@@ -6,7 +6,7 @@ import {
 import { Delete, Edit } from '@material-ui/icons';
 import ConditionalDialog from '../ConditionalDialog';
 
-const PathEditor = ({ words = [] }) => {
+const PathEditor = ({ inputWords = [] }) => {
   const [paths, setPaths] = React.useState([1, 2, 3]);
   const [dialogOpened, setDialogOpened] = React.useState(false);
 
@@ -53,7 +53,7 @@ const PathEditor = ({ words = [] }) => {
 
       {dialogOpened && (
       <ConditionalDialog
-        words={words}
+        inputWords={inputWords}
         open={dialogOpened}
         onSave={() => {
           setDialogOpened(false);
@@ -68,7 +68,7 @@ const PathEditor = ({ words = [] }) => {
 };
 
 PathEditor.propTypes = {
-  words: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 export default PathEditor;

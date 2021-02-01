@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 import Conditional from '../Conditional';
 
 const ConditionalDialog = ({
-  words = [], open = false, fullWidth = false, onCancel, onSave,
+  inputWords = [], open = false, fullWidth = false, onCancel, onSave,
 }) => (
   <Dialog open={open} maxWidth="lg" fullWidth={fullWidth} keepMounted>
     <DialogContent>
-      <Conditional words={words} />
+      <Conditional inputWords={inputWords} />
     </DialogContent>
     <DialogActions>
       <FormControl>
@@ -40,7 +40,7 @@ const ConditionalDialog = ({
 );
 
 ConditionalDialog.propTypes = {
-  words: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
   open: PropTypes.bool.isRequired,
   fullWidth: PropTypes.bool,
   onCancel: PropTypes.func.isRequired,

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Button, Grid, Box } from '@material-ui/core';
 import IfAnd from '../IfAnd';
 
-const IfOr = ({ words = [] }) => {
+const IfOr = ({ inputWords = [] }) => {
   const [operands, setOperands] = React.useState([]);
   return (
     <Grid container>
       {operands.map((operand, index) => {
         const key = `or${index}`;
-        return <IfAnd words={words} key={key} />;
+        return <IfAnd inputWords={inputWords} key={key} />;
       })}
 
       <Grid container>
@@ -24,7 +24,7 @@ const IfOr = ({ words = [] }) => {
 };
 
 IfOr.propTypes = {
-  words: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 export default IfOr;

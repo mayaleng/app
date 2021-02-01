@@ -11,7 +11,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PathEditor from '../PathEditor';
 
-const OutputWord = ({ words = [] }) => {
+const OutputWord = ({ inputWords = [] }) => {
   const [isConditional, setIsConditional] = React.useState(false);
 
   return (
@@ -30,7 +30,7 @@ const OutputWord = ({ words = [] }) => {
       <CardContent>
         <FormControl fullWidth>
           {!isConditional && <TextField label="Palabra literal" />}
-          {isConditional && <PathEditor words={words} />}
+          {isConditional && <PathEditor inputWords={inputWords} />}
         </FormControl>
       </CardContent>
     </Card>
@@ -38,7 +38,7 @@ const OutputWord = ({ words = [] }) => {
 };
 
 OutputWord.propTypes = {
-  words: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 export default OutputWord;

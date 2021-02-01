@@ -3,14 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IfOperand from '../IfOperand';
 
-const IfAnd = ({ words = [] }) => {
+const IfAnd = ({ inputWords = [] }) => {
   const [operands, setOperands] = React.useState([]);
 
   return (
     <Grid container>
       {operands.map((operand, index) => {
         const key = `op${index}`;
-        return <IfOperand key={key} words={words} onDelete={() => {}} />;
+        return <IfOperand key={key} inputWords={inputWords} onDelete={() => {}} />;
       })}
       <Grid item xs={12} md={12}>
         <Box mt={2}>
@@ -31,7 +31,7 @@ const IfAnd = ({ words = [] }) => {
 };
 
 IfAnd.propTypes = {
-  words: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 export default IfAnd;
