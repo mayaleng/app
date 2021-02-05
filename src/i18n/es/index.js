@@ -1,3 +1,5 @@
+import linguakit from './linguakit';
+
 const translations = {
   menu: {
     home: 'Inicio',
@@ -72,6 +74,7 @@ const translations = {
     startsWith: 'empieza con',
     endsWith: 'termina con',
   },
+  linguakit,
 };
 
 export default translations;
