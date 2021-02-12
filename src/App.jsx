@@ -76,6 +76,7 @@ const App = () => {
     )
     : (
       <InputWord
+        header="Word #n"
         word={word}
         onChange={(newWord) => {
           console.log(newWord);

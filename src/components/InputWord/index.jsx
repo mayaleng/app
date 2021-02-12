@@ -16,6 +16,7 @@ import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
 import knownTags from './known-tags';
 
 const ActionButton = styled(IconButton)`
@@ -61,7 +62,7 @@ const InputWord = ({ word = {}, header = '', onChange }) => {
           }}
         >
           {Object.keys(knownTags).map((knownTag) => (
-            <MenuItem value={knownTag}>
+            <MenuItem value={knownTag} key={uuidv4()}>
               {t(`linguakit.tags.${knownTag}`)}
             </MenuItem>
           ))}
@@ -78,31 +79,29 @@ const InputWord = ({ word = {}, header = '', onChange }) => {
           {Object.keys(tagFeatures).map((feature) => {
             const values = tagFeatures[feature];
             return (
-              <>
-                <FormControl fullWidth style={{ margin: '10px' }}>
-                  <InputLabel>{t(`linguakit.${tag}.features.${feature}`)}</InputLabel>
-                  <Select
-                    fullWidth
-                    value={features[feature] || ''}
-                    onChange={(e) => onChange({
-                      ...word,
-                      features: {
-                        ...features,
-                        [feature]: e.target.value,
-                      },
-                    })}
-                  >
-                    <MenuItem value="">
-                      <i>Ninguno</i>
+              <FormControl fullWidth style={{ margin: '10px' }} key={uuidv4()}>
+                <InputLabel>{t(`linguakit.${tag}.features.${feature}`)}</InputLabel>
+                <Select
+                  fullWidth
+                  value={features[feature] || ''}
+                  onChange={(e) => onChange({
+                    ...word,
+                    features: {
+                      ...features,
+                      [feature]: e.target.value,
+                    },
+                  })}
+                >
+                  <MenuItem value="" key={uuidv4()}>
+                    <i>Ninguno</i>
+                  </MenuItem>
+                  {values.map((value) => (
+                    <MenuItem value={value} key={uuidv4()}>
+                      {t(`linguakit.${tag}.${feature}.${value}`)}
                     </MenuItem>
-                    {values.map((value) => (
-                      <MenuItem value={value}>
-                        {t(`linguakit.${tag}.${feature}.${value}`)}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </>
+                  ))}
+                </Select>
+              </FormControl>
             );
           })}
         </CardContent>
@@ -113,7 +112,7 @@ const InputWord = ({ word = {}, header = '', onChange }) => {
 
 InputWord.propTypes = {
   header: PropTypes.string.isRequired,
-  word: PropTypes.shape.isRequired,
+  word: PropTypes.shape().isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
