@@ -28,7 +28,7 @@ const RuleEditor = ({ outputs = [], inputWords = [], onOutputsChange }) => {
         <OutputWords
           inputWords={inputWords}
           words={outputs}
-          onReorder={(newWords) => { onOutputsChange(newWords); }}
+          onReorder={onOutputsChange}
         />
       </Grid>
       <Grid container>

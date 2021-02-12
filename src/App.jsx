@@ -1,4 +1,5 @@
 import React from 'react';
+import InputWord from './components/InputWord';
 import RuleEditor from './components/RuleEditor';
 
 const defaultWords = [
@@ -63,12 +64,26 @@ const defaultWords = [
 
 const App = () => {
   const [outputs, setOutputs] = React.useState([]);
-  return (
-    <RuleEditor
-      inputWords={defaultWords}
-      outputs={outputs}
-      onOutputsChange={(newWords) => { setOutputs(newWords); }}
-    />
+  const [word, setWord] = React.useState({});
+
+  return (1 === 2
+    ? (
+      <RuleEditor
+        inputWords={defaultWords}
+        outputs={outputs}
+        onOutputsChange={(newWords) => { setOutputs(newWords); }}
+      />
+    )
+    : (
+      <InputWord
+        header="Word #n"
+        word={word}
+        onChange={(newWord) => {
+          console.log(newWord);
+          setWord(newWord);
+        }}
+      />
+    )
   );
 };
 
