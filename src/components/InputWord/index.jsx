@@ -3,11 +3,8 @@ import {
   CardActions,
   CardContent,
   Collapse,
-  FormControl,
   IconButton,
-  InputLabel,
   MenuItem,
-  Select,
   Typography,
   TextField,
 } from '@material-ui/core';
@@ -17,7 +14,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
-import knownTags from './known-tags';
+import knownTags from '../../lib/known-tags';
+import InputWordFeatures from '../InputWordFeatures';
 
 const ActionButton = styled(IconButton)`
   margin-left: auto;
@@ -36,10 +34,7 @@ const InputWord = ({ word = {}, header = '', onChange }) => {
     tag = '',
     features = {},
   } = word;
-
   const { t } = useTranslation();
-  const tagFeatures = knownTags[tag] || {};
-
   const [expanded, setExpanded] = React.useState(true);
 
   return (
@@ -76,34 +71,11 @@ const InputWord = ({ word = {}, header = '', onChange }) => {
       </CardActions>
       <Collapse in={expanded}>
         <CardContent>
-          {Object.keys(tagFeatures).map((feature) => {
-            const values = tagFeatures[feature];
-            return (
-              <FormControl fullWidth style={{ margin: '10px' }} key={uuidv4()}>
-                <InputLabel>{t(`linguakit.${tag}.features.${feature}`)}</InputLabel>
-                <Select
-                  fullWidth
-                  value={features[feature] || ''}
-                  onChange={(e) => onChange({
-                    ...word,
-                    features: {
-                      ...features,
-                      [feature]: e.target.value,
-                    },
-                  })}
-                >
-                  <MenuItem value="" key={uuidv4()}>
-                    <i>Ninguno</i>
-                  </MenuItem>
-                  {values.map((value) => (
-                    <MenuItem value={value} key={uuidv4()}>
-                      {t(`linguakit.${tag}.${feature}.${value}`)}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            );
-          })}
+          <InputWordFeatures
+            tag={tag}
+            value={features}
+            onChange={(newFeatures) => { onChange({ ...word, features: newFeatures }); }}
+          />
         </CardContent>
       </Collapse>
     </Card>
