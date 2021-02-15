@@ -68,7 +68,7 @@ export default {
       p: 'plural',
       n: 'invariable',
     },
-    posessor: {
+    possessor: {
       s: 'singular',
       p: 'plural',
     },
