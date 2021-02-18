@@ -13,7 +13,6 @@ const InputWordFeature = ({
   const { t } = useTranslation();
   const features = knownTags[tag] || {};
   const currentFeature = features[feature] || [];
-
   return (
     <FormControl fullWidth style={{ margin: '10px' }} key={uuidv4()}>
       <InputLabel>{t(`linguakit.${tag}.features.${feature}`)}</InputLabel>
