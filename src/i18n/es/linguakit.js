@@ -21,7 +21,7 @@ export default {
     },
     number: {
       s: 'singular',
-      p: 'plural2',
+      p: 'plural',
     },
     type: {
       q: 'calificativo',
@@ -43,7 +43,7 @@ export default {
       person: 'persona',
       gender: 'género',
       number: 'número',
-      posessor: 'posesivo',
+      possessor: 'posesivo',
     },
     type: {
       d: 'demostrativo',

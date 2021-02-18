@@ -18,7 +18,17 @@ const CustomBox = forwardRef((incomingProps, ref) => {
 
 const OutputWords = ({ inputWords = [], words = [], onReorder }) => (
   <Box>
-    <ReactSortable list={words} setList={onReorder} tag={CustomBox}>
+    <ReactSortable
+      list={words}
+      setList={(newWords, _, { dragging }) => {
+        if (!dragging) {
+          return;
+        }
+
+        onReorder(newWords);
+      }}
+      tag={CustomBox}
+    >
       {words.map((word) => (
         <Box key={word.id} width={240} m={2} style={{ display: 'inline-row' }}>
           <OutputWord inputWords={inputWords} />
