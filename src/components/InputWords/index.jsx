@@ -20,6 +20,7 @@ const InputWords = ({ words = [], onChange }) => (
       {words.map((word, index) => (
         <Box key={word.id} width={240} m={2} style={{ display: 'inline-row' }}>
           <InputWord
+            header={`#P${index + 1}`}
             word={word}
             onChange={(newWord) => {
               const newWords = [...words];

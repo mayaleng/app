@@ -40,7 +40,7 @@ const InputWord = ({ word = {}, header = '', onChange }) => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h5" color="textSecondary">{header}</Typography>
+        <Typography variant="h5" color="textSecondary"><b>{header}</b></Typography>
         <TextField
           select
           fullWidth

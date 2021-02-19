@@ -14,7 +14,7 @@ const AndOperand = ({ inputWords = [], onDelete }) => {
 
   const selectedWordIndex = parseInt(word.replace('w', ''), 10);
 
-  const selectedWordProps = selectedWordIndex >= 0 ? inputWords[selectedWordIndex].properties : [];
+  const selectedWordProps = selectedWordIndex >= 0 ? inputWords[selectedWordIndex].features : {};
 
   return (
     <Grid container spacing={1}>

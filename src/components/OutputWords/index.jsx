@@ -16,7 +16,7 @@ const CustomBox = forwardRef((incomingProps, ref) => {
   );
 });
 
-const OutputWords = ({ inputWords = [], words = [], onReorder }) => (
+const OutputWords = ({ inputWords = [], words = [], onChange }) => (
   <Box>
     <ReactSortable
       list={words}
@@ -25,7 +25,7 @@ const OutputWords = ({ inputWords = [], words = [], onReorder }) => (
           return;
         }
 
-        onReorder(newWords);
+        onChange(newWords);
       }}
       tag={CustomBox}
     >
@@ -41,7 +41,7 @@ const OutputWords = ({ inputWords = [], words = [], onReorder }) => (
 OutputWords.propTypes = {
   words: PropTypes.arrayOf(PropTypes.shape).isRequired,
   inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  onReorder: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default OutputWords;

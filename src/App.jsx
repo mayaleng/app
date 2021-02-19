@@ -1,13 +1,18 @@
 import React from 'react';
-import InputWords from './components/InputWords';
+import RuleEditor from './components/RuleEditor';
 
 const App = () => {
-  const [words, setWords] = React.useState([
-    { id: 'a' },
-    { id: 'b' },
-  ]);
+  const [inputs, setInputs] = React.useState([]);
+  const [outputs, setOutputs] = React.useState([]);
 
-  return <InputWords words={words} onChange={(newWords) => { setWords(newWords); }} />;
+  return (
+    <RuleEditor
+      inputs={inputs}
+      onInputsChange={setInputs}
+      outputs={outputs}
+      onOutputsChange={setOutputs}
+    />
+  );
 };
 
 export default App;
