@@ -63,7 +63,16 @@ const RuleEditor = ({
             size="small"
             variant="extended"
             position={1}
-            onClick={() => { onOutputsChange([...outputs, { id: uuidv4() }]); }}
+            onClick={() => {
+              onOutputsChange([...outputs, {
+                id: uuidv4(),
+                type: 'simple',
+                value: {
+                  type: 'literal',
+                  literal: '',
+                },
+              }]);
+            }}
           >
             <Add />
             Output word

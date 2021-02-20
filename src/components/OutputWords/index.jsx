@@ -29,9 +29,17 @@ const OutputWords = ({ inputWords = [], words = [], onChange }) => (
       }}
       tag={CustomBox}
     >
-      {words.map((word) => (
+      {words.map((word, index) => (
         <Box key={word.id} width={240} m={2} style={{ display: 'inline-row' }}>
-          <OutputWord inputWords={inputWords} />
+          <OutputWord
+            inputWords={inputWords}
+            word={word}
+            onChange={(newWord) => {
+              const clonedWords = [...words];
+              clonedWords[index] = newWord;
+              onChange(clonedWords);
+            }}
+          />
         </Box>
       ))}
     </ReactSortable>

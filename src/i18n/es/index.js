@@ -75,6 +75,11 @@ const translations = {
     endsWith: 'termina con',
   },
   linguakit,
+  OutputWord: {
+    simple: 'simple',
+    conditional: 'condicional',
+    value: 'contenido',
+  },
 };
 
 export default translations;

@@ -4,41 +4,47 @@ import { DeleteOutline } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import WordSelector from '../WordSelector';
 import OperationSelector from '../OperationSelector';
-import WordPropSelector from '../WordPropSelector';
+import WordFeatureSelector from '../WordFeatureSelector';
 
-const AndOperand = ({ inputWords = [], onDelete }) => {
-  const [word, setWord] = React.useState('');
-  const [operation, setOperation] = React.useState('');
-  const [operator, setOperator] = React.useState('');
-  const [wordPropery, setWordPropery] = React.useState('');
+const AndOperand = ({
+  inputWords = [], value = {}, onChange, onDelete,
+}) => {
+  const {
+    operator = '',
+    operandA = '',
+    operandB = '',
+  } = value;
 
-  const selectedWordIndex = parseInt(word.replace('w', ''), 10);
-
-  const selectedWordProps = selectedWordIndex >= 0 ? inputWords[selectedWordIndex].features : {};
+  const [selectedWord, setSelectedWord] = React.useState({});
 
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} sm={3} md={3}>
         <WordSelector
           inputWords={inputWords}
-          value={word}
-          onChange={(e) => {
-            setWord(e.target.value);
-          }}
+          value={selectedWord}
+          onChange={setSelectedWord}
         />
       </Grid>
       <Grid item xs={12} sm={12} md={3}>
-        <WordPropSelector
-          wordProps={selectedWordProps}
-          value={wordPropery}
-          onChange={(e) => setWordPropery(e.target.value)}
+        <WordFeatureSelector
+          word={selectedWord}
+          value={operandA}
+          onChange={(newFeature) => onChange({ ...value, operandA: newFeature })}
         />
       </Grid>
       <Grid item xs={12} sm={2} md={2}>
-        <OperationSelector value={operation} onChange={(e) => setOperation(e.target.value)} />
+        <OperationSelector
+          value={operator}
+          onChange={(e) => onChange({ ...value, operator: e.target.value })}
+        />
       </Grid>
       <Grid item xs={12} sm={3} md={3}>
-        <TextField value={operator} onChange={(e) => setOperator(e.target.value)} fullWidth />
+        <TextField
+          value={operandB}
+          onChange={(e) => onChange({ ...value, operandB: e.target.value })}
+          fullWidth
+        />
       </Grid>
       <Grid item xs={12} sm={1} md={1}>
         <center>
@@ -51,6 +57,12 @@ const AndOperand = ({ inputWords = [], onDelete }) => {
 
 AndOperand.propTypes = {
   inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  value: PropTypes.shape({
+    operandA: PropTypes.string.isRequired,
+    operandB: PropTypes.string.isRequired,
+    operator: PropTypes.string.isRequired,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
