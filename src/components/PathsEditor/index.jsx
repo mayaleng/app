@@ -6,8 +6,7 @@ import {
 import { Delete, Edit } from '@material-ui/icons';
 import ConditionalDialog from '../ConditionalDialog';
 
-const PathEditor = ({ inputWords = [] }) => {
-  const [paths, setPaths] = React.useState([1, 2, 3]);
+const PathEditor = ({ inputWords = [], paths = [], onChange }) => {
   const [dialogOpened, setDialogOpened] = React.useState(false);
 
   return (
@@ -44,7 +43,7 @@ const PathEditor = ({ inputWords = [] }) => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => { setPaths([...paths, 1]); }}
+            onClick={() => { onChange([...paths, {}]); }}
           >
             ADD +
           </Button>
@@ -68,7 +67,9 @@ const PathEditor = ({ inputWords = [] }) => {
 };
 
 PathEditor.propTypes = {
-  inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  inputWords: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  paths: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default PathEditor;

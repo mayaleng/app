@@ -25,7 +25,6 @@ const InputWordFeatures = ({
 
 InputWordFeatures.propTypes = {
   tag: PropTypes.string.isRequired,
-  feature: PropTypes.string.isRequired,
   value: PropTypes.shape().isRequired,
   onChange: PropTypes.func.isRequired,
 };

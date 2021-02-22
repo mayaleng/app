@@ -4,14 +4,14 @@ import {
   Button,
   Dialog, DialogActions, DialogContent, FormControl,
 } from '@material-ui/core';
-import PathEditor from '../PathEditor';
+import PathsEditor from '../PathsEditor';
 
 const PathEditorDialog = ({
   words = [], onCancel, onSave, open, fullWidth,
 }) => (
   <Dialog open={open} maxWidth="lg" fullWidth={fullWidth} keepMounted>
     <DialogContent>
-      <PathEditor words={words} />
+      <PathsEditor words={words} />
     </DialogContent>
     <DialogActions>
       <FormControl>

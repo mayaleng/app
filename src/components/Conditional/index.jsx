@@ -5,6 +5,7 @@ import IfOr from '../IfOr';
 
 const Conditional = ({ inputWords = [] }) => {
   const [text, setText] = React.useState('');
+  const [operands, setOperands] = React.useState([]);
   return (
     <Grid container>
       <Typography>Usar:</Typography>
@@ -14,7 +15,7 @@ const Conditional = ({ inputWords = [] }) => {
 
       <Typography>Solo si las siguientes condiciones se cumplen:</Typography>
       <Grid item xs={12} md={12}>
-        <IfOr inputWords={inputWords} />
+        <IfOr inputWords={inputWords} operands={operands} onChange={setOperands} />
       </Grid>
 
     </Grid>
