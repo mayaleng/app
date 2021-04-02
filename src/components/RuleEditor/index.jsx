@@ -50,7 +50,11 @@ const RuleEditor = ({
             size="small"
             variant="extended"
             position={2}
-            onClick={() => { onInputsChange([...inputs, { id: uuidv4(), tag: '' }]); }}
+            onClick={() => {
+              onInputsChange([
+                ...inputs,
+                { id: uuidv4(), tag: '', name: `w${inputs.length + 1}` }]);
+            }}
           >
             <Add />
             Input word
