@@ -12,6 +12,10 @@ import PropTypes from 'prop-types';
 const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
   const ref = useRef(null);
   const [editorState, setEditorState] = useState(() => {
+    if (Object.keys(content).length === 0) {
+      return EditorState.createEmpty();
+    }
+
     const contentState = Draft.convertFromRaw(content);
     return EditorState.createWithContent(contentState);
   });
@@ -41,8 +45,8 @@ const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
   }, []);
 
   const onSearchChange = useCallback(({ value }) => {
-    setSuggestions(suggestions.filter((current) => current.name.includes(value)));
-  }, []);
+    setSuggestions(inputWords.filter((current) => current.name && current.name.includes(value)));
+  }, [inputWords]);
 
   return (
     <Paper onClick={() => {
@@ -76,7 +80,12 @@ const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
           } = incommingProps;
 
           return (
-            <Card onMouseDown={onMouseDown} onMouseEnter={onMouseEnter} onMouseUp={onMouseUp} style={{ background: isFocused ? 'red' : 'green' }}>
+            <Card
+              onMouseDown={onMouseDown}
+              onMouseEnter={onMouseEnter}
+              onMouseUp={onMouseUp}
+              style={{ background: isFocused ? 'red' : 'green' }}
+            >
               <CardContent>
                 <Typography>
                   {mention.name}

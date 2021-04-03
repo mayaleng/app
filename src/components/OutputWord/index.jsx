@@ -2,7 +2,6 @@ import {
   CardContent,
   Card,
   FormControl,
-  TextField,
   Switch,
   Typography,
   Grid,
@@ -11,6 +10,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import PathsEditor from '../PathsEditor';
+import InputEditor from '../InputEditor';
 
 const CONDITIONAL = 'conditional';
 const SIMPLE = 'simple';
@@ -47,19 +47,32 @@ const OutputWord = ({ inputWords = [], word = {}, onChange }) => {
       <CardContent>
         <FormControl fullWidth>
           {!isConditional && (
-          <TextField
-            label={t('OutputWord.value')}
-            value={value.literal || ''}
-            onChange={(e) => {
-              onChange({
-                ...word,
-                value: {
-                  type: 'literal',
-                  literal: e.target.value,
-                },
-              });
-            }}
-          />
+            <InputEditor
+              content={value.literal || {}}
+              inputWords={inputWords}
+              onChange={(newValue) => {
+                onChange({
+                  ...word,
+                  value: {
+                    type: 'literal',
+                    literal: newValue,
+                  },
+                });
+              }}
+            />
+          // <TextField
+          //   label={t('OutputWord.value')}
+          //   value={value.literal || ''}
+          //   onChange={(e) => {
+          //     onChange({
+          //       ...word,
+          //       value: {
+          //         type: 'literal',
+          //         literal: e.target.value,
+          //       },
+          //     });
+          //   }}
+          // />
           )}
           {isConditional && (
           <PathsEditor
