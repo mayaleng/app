@@ -20,8 +20,13 @@ const InputWords = ({ words = [], onChange }) => (
       {words.map((word, index) => (
         <Box key={word.id} width={240} m={2} style={{ display: 'inline-row' }}>
           <InputWord
-            header={`#P${index + 1}`}
+            header={`#E${index + 1}`}
             word={word}
+            onRemove={(wordToRemove) => {
+              const { id } = wordToRemove;
+              const newWords = words.filter((w) => w.id !== id);
+              onChange(newWords);
+            }}
             onChange={(newWord) => {
               const newWords = [...words];
               newWords[index] = newWord;

@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useMemo, useRef, useState,
+  useMemo, useRef, useState,
 } from 'react';
 import Draft, { EditorState } from 'draft-js';
 import Editor from '@draft-js-plugins/editor';
@@ -8,8 +8,10 @@ import {
   Card, CardContent, Paper, Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const [editorState, setEditorState] = useState(() => {
     if (Object.keys(content).length === 0) {
@@ -25,6 +27,8 @@ const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
 
   const { MentionSuggestions, plugins } = useMemo(() => {
     const mentionPlugin = createMentionPlugin({
+      entityMutability: 'IMMUTABLE',
+      supportWhitespace: false,
       mentionComponent: ((innerProps) => {
         const { children } = innerProps;
         return (
@@ -40,13 +44,13 @@ const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
     return { plugins: [mentionPlugin], MentionSuggestions: newComponent };
   }, []);
 
-  const onOpenChange = useCallback((newValue) => {
+  const onOpenChange = (newValue) => {
     setOpen(newValue);
-  }, []);
+  };
 
-  const onSearchChange = useCallback(({ value }) => {
-    setSuggestions(inputWords.filter((current) => current.name && current.name.includes(value)));
-  }, [inputWords]);
+  const onSearchChange = ({ value }) => {
+    setSuggestions(inputWords.filter((current) => current.name && current.name.startsWith(value)));
+  };
 
   return (
     <Paper onClick={() => {
@@ -84,11 +88,11 @@ const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
               onMouseDown={onMouseDown}
               onMouseEnter={onMouseEnter}
               onMouseUp={onMouseUp}
-              style={{ background: isFocused ? 'red' : 'green' }}
+              style={{ background: isFocused ? 'red' : '' }}
             >
               <CardContent>
                 <Typography>
-                  {mention.name}
+                  {`${t(`linguakit.tags.${mention.tag}`)} (#${mention.name})`}
                 </Typography>
               </CardContent>
             </Card>

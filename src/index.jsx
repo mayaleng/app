@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 import './i18n';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import App from './App';
 
 const theme = createMuiTheme({
   typography: {
