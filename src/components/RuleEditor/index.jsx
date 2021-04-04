@@ -53,7 +53,7 @@ const RuleEditor = ({
             onClick={() => {
               onInputsChange([
                 ...inputs,
-                { id: uuidv4(), tag: '', name: `w${inputs.length + 1}` }]);
+                { id: uuidv4(), tag: 'adj', name: `E${inputs.length + 1}` }]);
             }}
           >
             <Add />

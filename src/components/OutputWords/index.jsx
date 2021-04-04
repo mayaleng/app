@@ -28,16 +28,22 @@ const OutputWords = ({ inputWords = [], words = [], onChange }) => (
         onChange(newWords);
       }}
       tag={CustomBox}
+      delay={300}
     >
       {words.map((word, index) => (
         <Box key={word.id} width={240} m={2} style={{ display: 'inline-row' }}>
           <OutputWord
+            header={`#S${index + 1}`}
             inputWords={inputWords}
             word={word}
             onChange={(newWord) => {
               const clonedWords = [...words];
               clonedWords[index] = newWord;
               onChange(clonedWords);
+            }}
+            onRemove={(wordToRemove) => {
+              const newWords = words.filter((w) => w.id !== wordToRemove.id);
+              onChange(newWords);
             }}
           />
         </Box>

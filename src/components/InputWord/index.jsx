@@ -5,11 +5,16 @@ import {
   Collapse,
   IconButton,
   MenuItem,
-  Typography,
   TextField,
+  CardHeader,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
 } from '@material-ui/core';
 import styled from 'styled-components';
-import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
+import { Delete, ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -29,18 +34,30 @@ const ExpandedMore = styled(ExpandMoreIcon)`
   transform: rotate(180deg);
 `;
 
-const InputWord = ({ word = {}, header = '', onChange }) => {
+const InputWord = ({
+  word = {}, header = '', onChange, onRemove,
+}) => {
   const {
     tag = '',
     features = {},
   } = word;
   const { t } = useTranslation();
   const [expanded, setExpanded] = React.useState(true);
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
 
   return (
     <Card>
-      <CardContent>
-        <Typography variant="h5" color="textSecondary"><b>{header}</b></Typography>
+      <CardHeader
+        title={header}
+        action={(
+          <IconButton aria-label="delete" onClick={() => { setDeleteOpen(!deleteOpen); }}>
+            <Delete />
+          </IconButton>
+        )}
+        style={{ paddingBottom: '10px' }}
+      />
+
+      <CardContent style={{ paddingTop: '0px', paddingBottom: '0px' }}>
         <TextField
           select
           fullWidth
@@ -63,14 +80,14 @@ const InputWord = ({ word = {}, header = '', onChange }) => {
           ))}
         </TextField>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions disableSpacing style={{ paddingBottom: '0px' }}>
         <ActionButton onClick={() => { setExpanded(!expanded); }}>
           {!expanded && <ExpandMore /> }
           {expanded && <ExpandedMore />}
         </ActionButton>
       </CardActions>
       <Collapse in={expanded}>
-        <CardContent>
+        <CardContent style={{ paddingTop: '0px' }}>
           <InputWordFeatures
             tag={tag}
             value={features}
@@ -78,6 +95,18 @@ const InputWord = ({ word = {}, header = '', onChange }) => {
           />
         </CardContent>
       </Collapse>
+
+      <Dialog open={deleteOpen} onClose={() => { setDeleteOpen(!deleteOpen); }}>
+        <DialogContent>
+          <DialogContentText>
+            ¿Desea eliminar este elemento?
+          </DialogContentText>
+          <DialogActions>
+            <Button color="primary" onClick={() => { setDeleteOpen(!deleteOpen); }}>No</Button>
+            <Button color="secondary" onClick={() => { onRemove(word); }}>Sí</Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };
@@ -86,6 +115,7 @@ InputWord.propTypes = {
   header: PropTypes.string.isRequired,
   word: PropTypes.shape().isRequired,
   onChange: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default InputWord;

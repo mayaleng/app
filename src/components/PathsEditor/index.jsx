@@ -4,6 +4,7 @@ import {
   Button, FormControl, Grid, Typography,
 } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
+import { v4 as uuidv4 } from 'uuid';
 import ConditionalDialog from '../ConditionalDialog';
 
 const PathEditor = ({ inputWords = [], paths = [], onChange }) => {
@@ -11,32 +12,29 @@ const PathEditor = ({ inputWords = [], paths = [], onChange }) => {
 
   return (
     <Grid container>
-      {paths.map((path, index) => {
-        const key = `p${index}`;
-        return (
-          <Grid container key={key}>
-            <Grid item xs={6}>
-              <Typography>
-                {`Alternativa #${index + 1}`}
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Button>
-                <Delete color="secondary" />
-              </Button>
-            </Grid>
-            <Grid item xs={3}>
-              <Button
-                onClick={() => {
-                  setDialogOpened(true);
-                }}
-              >
-                <Edit color="primary" />
-              </Button>
-            </Grid>
+      {paths.map((path, index) => (
+        <Grid container key={uuidv4()}>
+          <Grid item xs={6}>
+            <Typography>
+              {`Alternativa #${index + 1}`}
+            </Typography>
           </Grid>
-        );
-      })}
+          <Grid item xs={3}>
+            <Button>
+              <Delete color="secondary" />
+            </Button>
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              onClick={() => {
+                setDialogOpened(true);
+              }}
+            >
+              <Edit color="primary" />
+            </Button>
+          </Grid>
+        </Grid>
+      ))}
 
       <Grid item xs={12}>
         <FormControl>

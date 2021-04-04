@@ -4,6 +4,7 @@ import {
   FormControl, MenuItem, Select,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
 
 const WordFeatureSelector = ({ word = {}, value = {}, onChange }) => {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ const WordFeatureSelector = ({ word = {}, value = {}, onChange }) => {
         fullWidth
       >
         {featureKeys.map((featureKey) => (
-          <MenuItem key={featureKey} value={featureKey}>
+          <MenuItem key={uuidv4()} value={featureKey}>
             {t(`linguakit.${tag}.features.${featureKey}`)}
           </MenuItem>
         ), [])}
