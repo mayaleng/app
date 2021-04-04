@@ -138,4 +138,4 @@ OutputWord.propTypes = {
   onRemove: PropTypes.func.isRequired,
 };
 
-export default OutputWord;
+export default React.memo(OutputWord);

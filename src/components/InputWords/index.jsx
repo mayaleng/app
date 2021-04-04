@@ -46,4 +46,4 @@ InputWords.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default InputWords;
+export default React.memo(InputWords);

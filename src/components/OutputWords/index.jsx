@@ -28,7 +28,7 @@ const OutputWords = ({ inputWords = [], words = [], onChange }) => (
         onChange(newWords);
       }}
       tag={CustomBox}
-      delay={300}
+      delay={20}
     >
       {words.map((word, index) => (
         <Box key={word.id} width={240} m={2} style={{ display: 'inline-row' }}>
@@ -58,4 +58,4 @@ OutputWords.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default OutputWords;
+export default React.memo(OutputWords);

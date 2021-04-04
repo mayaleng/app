@@ -43,4 +43,4 @@ WordSelector.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default WordSelector;
+export default React.memo(WordSelector);
