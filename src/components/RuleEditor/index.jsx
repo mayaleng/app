@@ -20,7 +20,14 @@ const SubFab = styled(Fab)`
 `;
 
 const RuleEditor = ({
-  outputs = [], inputs = [], onOutputsChange, onInputsChange,
+  inputs = [],
+  setInputs,
+  onInputUpdate,
+  onInputRemove,
+  outputs = [],
+  setOutputs,
+  onOutputUpdate,
+  onOutputRemove,
 }) => {
   const [showSubmenu, setShowSubmenu] = React.useState(false);
 
@@ -29,14 +36,18 @@ const RuleEditor = ({
       <Grid container>
         <InputWords
           words={inputs}
-          onChange={onInputsChange}
+          setList={setInputs}
+          onRemove={onInputRemove}
+          onUpdate={onInputUpdate}
         />
       </Grid>
       <Grid container>
         <OutputWords
-          inputWords={inputs}
           words={outputs}
-          onChange={onOutputsChange}
+          setList={setOutputs}
+          inputWords={inputs}
+          onUpdate={onOutputUpdate}
+          onRemove={onOutputRemove}
         />
       </Grid>
       <Grid container>
@@ -51,7 +62,7 @@ const RuleEditor = ({
             variant="extended"
             position={2}
             onClick={() => {
-              onInputsChange([
+              setInputs([
                 ...inputs,
                 { id: uuidv4(), tag: 'adj', name: `E${inputs.length + 1}` }]);
             }}
@@ -68,7 +79,7 @@ const RuleEditor = ({
             variant="extended"
             position={1}
             onClick={() => {
-              onOutputsChange([...outputs, {
+              setOutputs([...outputs, {
                 id: uuidv4(),
                 type: 'simple',
                 value: {
@@ -89,9 +100,13 @@ const RuleEditor = ({
 
 RuleEditor.propTypes = {
   inputs: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  onInputUpdate: PropTypes.func.isRequired,
+  onInputRemove: PropTypes.func.isRequired,
+  setInputs: PropTypes.func.isRequired,
   outputs: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  onOutputsChange: PropTypes.func.isRequired,
-  onInputsChange: PropTypes.func.isRequired,
+  onOutputUpdate: PropTypes.func.isRequired,
+  onOutputRemove: PropTypes.func.isRequired,
+  setOutputs: PropTypes.func.isRequired,
 };
 
 export default RuleEditor;
