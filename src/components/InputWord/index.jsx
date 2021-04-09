@@ -42,7 +42,7 @@ const InputWord = ({
     features = {},
   } = word;
   const { t } = useTranslation();
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
 
   return (

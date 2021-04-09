@@ -16,7 +16,9 @@ const CustomBox = forwardRef((incomingProps, ref) => {
   );
 });
 
-const OutputWords = ({ inputWords = [], words = [], onChange }) => (
+const OutputWords = ({
+  inputWords = [], words = [], onUpdate, onRemove, setList,
+}) => (
   <Box>
     <ReactSortable
       list={words}
@@ -25,26 +27,19 @@ const OutputWords = ({ inputWords = [], words = [], onChange }) => (
           return;
         }
 
-        onChange(newWords);
+        setList(newWords);
       }}
       tag={CustomBox}
       delay={20}
     >
-      {words.map((word, index) => (
+      {words.map((word) => (
         <Box key={word.id} width={240} m={2} style={{ display: 'inline-row' }}>
           <OutputWord
-            header={`#S${index + 1}`}
+            header={`#S${word.id.substring(0, 8).toUpperCase()}`}
             inputWords={inputWords}
             word={word}
-            onChange={(newWord) => {
-              const clonedWords = [...words];
-              clonedWords[index] = newWord;
-              onChange(clonedWords);
-            }}
-            onRemove={(wordToRemove) => {
-              const newWords = words.filter((w) => w.id !== wordToRemove.id);
-              onChange(newWords);
-            }}
+            onChange={onUpdate}
+            onRemove={onRemove}
           />
         </Box>
       ))}
@@ -55,7 +50,9 @@ const OutputWords = ({ inputWords = [], words = [], onChange }) => (
 OutputWords.propTypes = {
   words: PropTypes.arrayOf(PropTypes.shape).isRequired,
   inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  onChange: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  setList: PropTypes.func.isRequired,
 };
 
 export default React.memo(OutputWords);

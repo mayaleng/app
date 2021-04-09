@@ -5,7 +5,9 @@ import { Box } from '@material-ui/core';
 import InputWord from '../InputWord';
 import SortableBox from '../SortableBox';
 
-const InputWords = ({ words = [], onChange }) => (
+const InputWords = ({
+  words = [], onUpdate, onRemove, setList,
+}) => (
   <Box>
     <ReactSortable
       list={words}
@@ -13,25 +15,17 @@ const InputWords = ({ words = [], onChange }) => (
         if (!dragging) {
           return;
         }
-        onChange(newWords);
+        setList(newWords);
       }}
       tag={SortableBox}
     >
-      {words.map((word, index) => (
+      {words.map((word) => (
         <Box key={word.id} width={240} m={2} style={{ display: 'inline-row' }}>
           <InputWord
-            header={`#E${index + 1}`}
+            header={`#E${word.id.substring(0, 8).toUpperCase()}`}
             word={word}
-            onRemove={(wordToRemove) => {
-              const { id } = wordToRemove;
-              const newWords = words.filter((w) => w.id !== id);
-              onChange(newWords);
-            }}
-            onChange={(newWord) => {
-              const newWords = [...words];
-              newWords[index] = newWord;
-              onChange(newWords);
-            }}
+            onRemove={onRemove}
+            onChange={onUpdate}
           />
         </Box>
       ))}
@@ -43,7 +37,9 @@ InputWords.propTypes = {
   words: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
   })).isRequired,
-  onChange: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  setList: PropTypes.func.isRequired,
 };
 
 export default React.memo(InputWords);
