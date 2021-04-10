@@ -62,9 +62,10 @@ const RuleEditor = ({
             variant="extended"
             position={2}
             onClick={() => {
+              const uuid = uuidv4();
               setInputs([
                 ...inputs,
-                { id: uuidv4(), tag: 'adj', name: `E${inputs.length + 1}` }]);
+                { id: uuid, tag: 'adj', name: `E${uuid.substring(0, 8).toUpperCase()}` }]);
             }}
           >
             <Add />
