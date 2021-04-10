@@ -1,9 +1,10 @@
 import { Grid, Fab, Zoom } from '@material-ui/core';
 import React from 'react';
 import styled from 'styled-components';
-import { Add } from '@material-ui/icons';
+import { Add, FileCopy } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
+import { useTranslation } from 'react-i18next';
+import { getShortId } from '../../lib/id-generator';
 import OutputWords from '../OutputWords';
 import InputWords from '../InputWords';
 
@@ -29,6 +30,7 @@ const RuleEditor = ({
   onOutputUpdate,
   onOutputRemove,
 }) => {
+  const { t } = useTranslation();
   const [showSubmenu, setShowSubmenu] = React.useState(false);
 
   return (
@@ -60,16 +62,42 @@ const RuleEditor = ({
             color="primary"
             size="small"
             variant="extended"
-            position={2}
+            position={3}
             onClick={() => {
-              const uuid = uuidv4();
+              const newId = getShortId().toUpperCase();
               setInputs([
                 ...inputs,
-                { id: uuid, tag: 'adj', name: `E${uuid.substring(0, 8).toUpperCase()}` }]);
+                {
+                  id: newId,
+                  tag: 'adj',
+                  name: `${t('linguakit.tags.adj')} (#${newId})`,
+                }]);
             }}
           >
             <Add />
-            Input word
+            &nbsp;&nbsp;Input word&nbsp;&nbsp;
+          </SubFab>
+        </Zoom>
+
+        <Zoom in={showSubmenu} style={{ transitionDelay: showSubmenu ? '50ms' : '100ms' }}>
+          <SubFab
+            color="primary"
+            size="small"
+            variant="extended"
+            position={2}
+            onClick={() => {
+              setOutputs([...outputs, {
+                id: getShortId(),
+                type: 'simple',
+                value: {
+                  type: 'literal',
+                  literal: '',
+                },
+              }]);
+            }}
+          >
+            <Add />
+            &nbsp;&nbsp;Output word&nbsp;&nbsp;
           </SubFab>
         </Zoom>
 
@@ -80,18 +108,15 @@ const RuleEditor = ({
             variant="extended"
             position={1}
             onClick={() => {
-              setOutputs([...outputs, {
-                id: uuidv4(),
-                type: 'simple',
-                value: {
-                  type: 'literal',
-                  literal: '',
-                },
-              }]);
+              navigator.clipboard.writeText(JSON.stringify({
+                inputs,
+                outputs,
+              }, null, 2));
             }}
           >
-            <Add />
-            Output word
+            <FileCopy />
+
+            &nbsp;&nbsp;Copy code&nbsp;&nbsp;
           </SubFab>
         </Zoom>
       </Grid>

@@ -70,6 +70,7 @@ const InputWord = ({
               ...word,
               features: {},
               tag: e.target.value,
+              name: `${t(`linguakit.tags.${e.target.value}`)} (#${word.id})`,
             });
           }}
         >
