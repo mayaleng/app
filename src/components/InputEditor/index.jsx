@@ -32,7 +32,7 @@ const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
       mentionComponent: ((innerProps) => {
         const { children } = innerProps;
         return (
-          <span style={{ background: 'blue', color: 'white' }}>
+          <span style={{ background: '#83b087', color: '#2f2020' }}>
             {children}
           </span>
         );
@@ -88,11 +88,11 @@ const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
               onMouseDown={onMouseDown}
               onMouseEnter={onMouseEnter}
               onMouseUp={onMouseUp}
-              style={{ background: isFocused ? 'red' : '' }}
+              style={{ background: isFocused ? '#d6cece' : '' }}
             >
               <CardContent>
-                <Typography>
-                  {`${t(`linguakit.tags.${mention.tag}`)} (#${mention.name})`}
+                <Typography variant="button">
+                  {`#${mention.name} - ${t(`linguakit.tags.${mention.tag}`)}`}
                 </Typography>
               </CardContent>
             </Card>
