@@ -37,6 +37,8 @@ const OutputWord = ({
 
   const isConditional = type === CONDITIONAL;
 
+  const editorKey = inputWords.reduce((key, w) => `${key}${w.tag}`, '');
+
   return (
     <Card>
       <CardHeader
@@ -69,6 +71,7 @@ const OutputWord = ({
         <FormControl fullWidth>
           {!isConditional && (
             <InputEditor
+              key={editorKey}
               content={value.literal || {}}
               inputWords={inputWords}
               onChange={(newValue) => {
