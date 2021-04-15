@@ -1,14 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, FormControl, Grid, Typography,
+  Button, FormControl, Grid, Typography, Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
 import { v4 as uuidv4 } from 'uuid';
 import ConditionalDialog from '../ConditionalDialog';
 
-const PathEditor = ({ inputWords = [], paths = [], onChange }) => {
+const PathEditor = ({
+  inputWords = [], paths = [], onChange, onRemove,
+}) => {
   const [dialogOpened, setDialogOpened] = React.useState(false);
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
 
   return (
     <Grid container>
@@ -20,7 +26,9 @@ const PathEditor = ({ inputWords = [], paths = [], onChange }) => {
             </Typography>
           </Grid>
           <Grid item xs={3}>
-            <Button>
+            <Button
+              onClick={() => { setDeleteOpen(!deleteOpen); }}
+            >
               <Delete color="secondary" />
             </Button>
           </Grid>
@@ -60,6 +68,20 @@ const PathEditor = ({ inputWords = [], paths = [], onChange }) => {
         }}
       />
       )}
+
+      {deleteOpen && (
+      <Dialog open={deleteOpen} onClose={() => { setDeleteOpen(!deleteOpen); }}>
+        <DialogContent>
+          <DialogContentText>
+            ¿Desea eliminar este elemento?
+          </DialogContentText>
+          <DialogActions>
+            <Button color="primary" onClick={() => { setDeleteOpen(!deleteOpen); }}>No</Button>
+            <Button color="secondary" onClick={() => { onRemove(); }}>Sí</Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
+      )}
     </Grid>
   );
 };
@@ -68,6 +90,7 @@ PathEditor.propTypes = {
   inputWords: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   paths: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onChange: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default PathEditor;

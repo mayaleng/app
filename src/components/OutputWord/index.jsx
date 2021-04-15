@@ -37,6 +37,8 @@ const OutputWord = ({
 
   const isConditional = type === CONDITIONAL;
 
+  const onRemoveAlternative = () => word.alternatives.splice(-1, 1);
+
   return (
     <Card>
       <CardHeader
@@ -107,6 +109,7 @@ const OutputWord = ({
               });
             }
           }
+            onRemove={onRemoveAlternative}
           />
           )}
         </FormControl>
