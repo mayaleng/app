@@ -37,7 +37,11 @@ const OutputWord = ({
 
   const isConditional = type === CONDITIONAL;
 
-  const onRemoveAlternative = () => word.alternatives.splice(-1, 1);
+  const onRemoveAlternative = (id) => {
+    word.alternatives.splice(id, 1);
+    return word;
+  };
+
   const editorKey = inputWords.reduce((key, w) => `${key}${w.tag}`, '');
 
   return (

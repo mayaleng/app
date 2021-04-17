@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, FormControl, Grid, Typography, Dialog,
+  Button,
+  FormControl,
+  Grid,
+  Typography,
+  Dialog,
   DialogContent,
   DialogContentText,
   DialogActions,
@@ -41,6 +45,17 @@ const PathEditor = ({
               <Edit color="primary" />
             </Button>
           </Grid>
+          <Dialog open={deleteOpen} onClose={() => { setDeleteOpen(!deleteOpen); }}>
+            <DialogContent>
+              <DialogContentText>
+                ¿Desea eliminar este elemento?
+              </DialogContentText>
+              <DialogActions>
+                <Button color="primary" onClick={() => { setDeleteOpen(!deleteOpen); }}>No</Button>
+                <Button color="secondary" onClick={() => { onRemove(index); setDeleteOpen(!deleteOpen); }}>Sí</Button>
+              </DialogActions>
+            </DialogContent>
+          </Dialog>
         </Grid>
       ))}
 
@@ -67,20 +82,6 @@ const PathEditor = ({
           setDialogOpened(false);
         }}
       />
-      )}
-
-      {deleteOpen && (
-      <Dialog open={deleteOpen} onClose={() => { setDeleteOpen(!deleteOpen); }}>
-        <DialogContent>
-          <DialogContentText>
-            ¿Desea eliminar este elemento?
-          </DialogContentText>
-          <DialogActions>
-            <Button color="primary" onClick={() => { setDeleteOpen(!deleteOpen); }}>No</Button>
-            <Button color="secondary" onClick={() => { onRemove(); }}>Sí</Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
       )}
     </Grid>
   );
