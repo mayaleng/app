@@ -1,16 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, TextField, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import IfOr from '../IfOr';
+import InputEditor from '../InputEditor';
 
-const Conditional = ({ inputWords = [] }) => {
-  const [text, setText] = React.useState('');
+const Alternative = ({
+  inputWords = [],
+  alternative = { },
+  onChange,
+}) => {
+  const {
+    value,
+  } = alternative;
+
   const [operands, setOperands] = React.useState([]);
   return (
     <Grid container>
       <Typography>Usar:</Typography>
       <Grid item xs={12} md={12}>
-        <TextField fullWidth value={text} onChange={(e) => { setText(e.target.value); }} placeholder="Insert value" />
+        <InputEditor
+          content={value}
+          inputWords={inputWords}
+          onChange={(newValue) => {
+            onChange({ ...alternative, value: newValue });
+          }}
+        />
       </Grid>
 
       <Typography>Solo si las siguientes condiciones se cumplen:</Typography>
@@ -22,8 +36,10 @@ const Conditional = ({ inputWords = [] }) => {
   );
 };
 
-Conditional.propTypes = {
+Alternative.propTypes = {
+  alternative: PropTypes.shape().isRequired,
+  onChange: PropTypes.func.isRequired,
   inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
-export default Conditional;
+export default Alternative;

@@ -17,7 +17,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Delete } from '@material-ui/icons';
-import PathsEditor from '../PathsEditor';
+import Alternatives from '../Alternatives';
 import InputEditor from '../InputEditor';
 
 const CONDITIONAL = 'conditional';
@@ -31,8 +31,8 @@ const OutputWord = ({
 
   const {
     type = 'simple',
-    value = {},
-    alternatives = [],
+    simple = {},
+    conditional = {},
   } = word;
 
   const isConditional = type === CONDITIONAL;
@@ -72,41 +72,44 @@ const OutputWord = ({
           {!isConditional && (
             <InputEditor
               key={editorKey}
-              content={value.literal || {}}
+              content={simple || {}}
               inputWords={inputWords}
               onChange={(newValue) => {
                 onChange({
                   ...word,
-                  value: {
-                    type: 'literal',
-                    literal: newValue,
-                  },
+                  type: 'simple',
+                  simple: newValue,
                 });
               }}
             />
-          // <TextField
-          //   label={t('OutputWord.value')}
-          //   value={value.literal || ''}
-          //   onChange={(e) => {
-          //     onChange({
-          //       ...word,
-          //       value: {
-          //         type: 'literal',
-          //         literal: e.target.value,
-          //       },
-          //     });
-          //   }}
-          // />
           )}
           {isConditional && (
-          <PathsEditor
+          <Alternatives
             inputWords={inputWords}
-            paths={alternatives}
+            alternatives={conditional.alternatives || []}
+            onAdd={(newAlternative) => {
+              const {
+                alternatives = [],
+              } = conditional;
+              onChange({
+                ...word,
+                conditional: {
+                  ...conditional,
+                  alternatives: [
+                    ...alternatives,
+                    newAlternative,
+                  ],
+                },
+              });
+            }}
             onChange={
             (newAlternatives) => {
               onChange({
                 ...word,
-                alternatives: newAlternatives,
+                conditional: {
+                  ...conditional,
+                  alternatives: newAlternatives,
+                },
               });
             }
           }

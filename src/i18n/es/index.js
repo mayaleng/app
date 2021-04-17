@@ -80,6 +80,10 @@ const translations = {
     conditional: 'condicional',
     value: 'contenido',
   },
+  PathsEditor: {
+    add: 'agregar',
+    path: 'alternativa',
+  },
 };
 
 export default translations;

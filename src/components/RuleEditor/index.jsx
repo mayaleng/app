@@ -89,9 +89,8 @@ const RuleEditor = ({
               setOutputs([...outputs, {
                 id: getShortId(),
                 type: 'simple',
-                value: {
-                  type: 'literal',
-                  literal: '',
+                simple: {
+
                 },
               }]);
             }}
