@@ -2,8 +2,56 @@ import React from 'react';
 import RuleEditor from './components/RuleEditor';
 
 const App = () => {
-  const [inputs, setInputs] = React.useState([]);
-  const [ouputs, setOutputs] = React.useState([]);
+  const [inputs, setInputs] = React.useState([
+    {
+      id: '8PT',
+      tag: 'verb',
+      name: 'verbo (#8PT)',
+      features: {},
+    },
+  ]);
+  const [ouputs, setOutputs] = React.useState([
+    {
+      id: 'Z-3',
+      type: 'simple',
+      value: {
+        type: 'literal',
+        literal: {
+          blocks: [
+            {
+              key: 'ag0cv',
+              text: 'jj adjetivo (#8PT) ks sddsd',
+              type: 'unstyled',
+              depth: 0,
+              inlineStyleRanges: [],
+              entityRanges: [
+                {
+                  offset: 3,
+                  length: 15,
+                  key: 0,
+                },
+              ],
+              data: {},
+            },
+          ],
+          entityMap: {
+            0: {
+              type: 'mention',
+              mutability: 'IMMUTABLE',
+              data: {
+                mention: {
+                  id: '8PT',
+                  tag: 'verb',
+                  name: 'verbo (#8PT)',
+                  features: {},
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  ]);
 
   const onInputUpdate = React.useCallback((word) => {
     setInputs((prevInputs) => {

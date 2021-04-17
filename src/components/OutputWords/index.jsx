@@ -30,12 +30,12 @@ const OutputWords = ({
         setList(newWords);
       }}
       tag={CustomBox}
-      delay={20}
+      delay={200}
     >
       {words.map((word) => (
         <Box key={word.id} width={240} m={2} style={{ display: 'inline-row' }}>
           <OutputWord
-            header={`#S${word.id.substring(0, 8).toUpperCase()}`}
+            header={`#${word.id.toUpperCase()}`}
             inputWords={inputWords}
             word={word}
             onChange={onUpdate}

@@ -38,6 +38,7 @@ const OutputWord = ({
   const isConditional = type === CONDITIONAL;
 
   const onRemoveAlternative = () => word.alternatives.splice(-1, 1);
+  const editorKey = inputWords.reduce((key, w) => `${key}${w.tag}`, '');
 
   return (
     <Card>
@@ -71,6 +72,7 @@ const OutputWord = ({
         <FormControl fullWidth>
           {!isConditional && (
             <InputEditor
+              key={editorKey}
               content={value.literal || {}}
               inputWords={inputWords}
               onChange={(newValue) => {

@@ -8,17 +8,109 @@ import {
   Card, CardContent, Paper, Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+
+const filterContent = (content, inputWords = []) => {
+  const { blocks, entityMap } = content;
+
+  if (!blocks || !entityMap) {
+    return content;
+  }
+
+  const newEntityMap = Object.keys(entityMap).reduce((acc, key) => {
+    const entity = entityMap[`${key}`];
+    const {
+      data: {
+        mention: {
+          id,
+        },
+      },
+    } = entity;
+
+    const word = inputWords.find((w) => id === w.id);
+    if (!word) {
+      return acc;
+    }
+
+    entity.data.mention = word;
+    acc[key] = entity;
+
+    return acc;
+  }, {});
+
+  const newBlocks = blocks.map((block) => {
+    const {
+      text,
+      entityRanges = [],
+    } = block;
+
+    const {
+      entityRanges: newEntityRanges,
+      text: newBlockText,
+    } = entityRanges.reduce((acc, entityRange) => {
+      const {
+        addToOffset: accAddToOffset,
+        entityRanges: accEntityRanges,
+        text: accText,
+      } = acc;
+
+      const {
+        key,
+        offset,
+        length,
+      } = entityRange;
+
+      const entity = newEntityMap[key];
+
+      if (!entity) {
+        return acc;
+      }
+
+      const {
+        data: {
+          mention: {
+            name,
+          },
+        },
+      } = entity;
+
+      const newLength = name.length;
+      const newOffset = offset + accAddToOffset;
+      const diffLength = newLength - length;
+      const newText = accText.substring(0, newOffset)
+        + name
+        + accText.substring(newOffset + length);
+
+      return {
+        addToOffset: accAddToOffset + diffLength,
+        entityRanges: [
+          ...accEntityRanges,
+          {
+            ...entityRange,
+            length: newLength,
+            offset: newOffset,
+          },
+        ],
+        text: newText,
+      };
+    }, { addToOffset: 0, entityRanges: [], text });
+
+    return {
+      ...block, entityRanges: newEntityRanges, text: newBlockText,
+    };
+  });
+
+  return { ...content, blocks: newBlocks, entityMap: newEntityMap };
+};
 
 const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
-  const { t } = useTranslation();
   const ref = useRef(null);
   const [editorState, setEditorState] = useState(() => {
-    if (Object.keys(content).length === 0) {
+    const filteredContent = filterContent(content, inputWords);
+    if (Object.keys(filteredContent).length === 0) {
       return EditorState.createEmpty();
     }
 
-    const contentState = Draft.convertFromRaw(content);
+    const contentState = Draft.convertFromRaw(filteredContent);
     return EditorState.createWithContent(contentState);
   });
 
@@ -37,11 +129,14 @@ const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
           </span>
         );
       }),
-    });
+    }, []);
 
     const { MentionSuggestions: newComponent } = mentionPlugin;
 
-    return { plugins: [mentionPlugin], MentionSuggestions: newComponent };
+    return {
+      plugins: [mentionPlugin],
+      MentionSuggestions: newComponent,
+    };
   }, []);
 
   const onOpenChange = (newValue) => {
@@ -49,7 +144,11 @@ const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
   };
 
   const onSearchChange = ({ value }) => {
-    setSuggestions(inputWords.filter((current) => current.name && current.name.startsWith(value)));
+    setSuggestions(
+      inputWords.filter(
+        (current) => current.id && current.id.toLowerCase().startsWith(value.toLowerCase()),
+      ),
+    );
   };
 
   return (
@@ -92,7 +191,7 @@ const InputEditor = ({ onChange, content = {}, inputWords = [] }) => {
             >
               <CardContent>
                 <Typography variant="button">
-                  {`#${mention.name} - ${t(`linguakit.tags.${mention.tag}`)}`}
+                  {mention.name}
                 </Typography>
               </CardContent>
             </Card>

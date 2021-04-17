@@ -22,7 +22,7 @@ const InputWords = ({
       {words.map((word) => (
         <Box key={word.id} width={240} m={2} style={{ display: 'inline-row' }}>
           <InputWord
-            header={`#E${word.id.substring(0, 8).toUpperCase()}`}
+            header={`#${word.id.toUpperCase()}`}
             word={word}
             onRemove={onRemove}
             onChange={onUpdate}
