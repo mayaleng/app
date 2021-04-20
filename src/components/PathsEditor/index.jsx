@@ -19,6 +19,11 @@ const PathEditor = ({
 }) => {
   const [dialogOpened, setDialogOpened] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const [deleteId, setDeleteId] = React.useState(null);
+  const removeAndClose = () => {
+    onRemove(deleteId);
+    setDeleteOpen(!deleteOpen);
+  };
 
   return (
     <Grid container>
@@ -31,7 +36,7 @@ const PathEditor = ({
           </Grid>
           <Grid item xs={3}>
             <Button
-              onClick={() => { setDeleteOpen(!deleteOpen); }}
+              onClick={() => { setDeleteId(index); setDeleteOpen(!deleteOpen); }}
             >
               <Delete color="secondary" />
             </Button>
@@ -45,17 +50,6 @@ const PathEditor = ({
               <Edit color="primary" />
             </Button>
           </Grid>
-          <Dialog open={deleteOpen} onClose={() => { setDeleteOpen(!deleteOpen); }}>
-            <DialogContent>
-              <DialogContentText>
-                ¿Desea eliminar este elemento?
-              </DialogContentText>
-              <DialogActions>
-                <Button color="primary" onClick={() => { setDeleteOpen(!deleteOpen); }}>No</Button>
-                <Button color="secondary" onClick={() => { onRemove(index); setDeleteOpen(!deleteOpen); }}>Sí</Button>
-              </DialogActions>
-            </DialogContent>
-          </Dialog>
         </Grid>
       ))}
 
@@ -70,6 +64,18 @@ const PathEditor = ({
           </Button>
         </FormControl>
       </Grid>
+
+      <Dialog open={deleteOpen} onClose={() => { setDeleteOpen(!deleteOpen); }}>
+        <DialogContent>
+          <DialogContentText>
+            ¿Desea eliminar este elemento?
+          </DialogContentText>
+          <DialogActions>
+            <Button color="primary" onClick={() => { setDeleteOpen(!deleteOpen); }}>No</Button>
+            <Button color="secondary" onClick={() => { removeAndClose(); }}>Sí</Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
 
       {dialogOpened && (
       <ConditionalDialog
