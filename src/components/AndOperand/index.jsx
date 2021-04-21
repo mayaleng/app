@@ -7,7 +7,7 @@ import OperationSelector from '../OperationSelector';
 import WordFeatureSelector from '../WordFeatureSelector';
 
 const AndOperand = ({
-  inputWords = [], value = {}, onChange, onDelete,
+  operand = '', inputWords = [], value = {}, onChange, onDelete,
 }) => {
   const {
     operator = '',
@@ -48,7 +48,7 @@ const AndOperand = ({
       </Grid>
       <Grid item xs={12} sm={1} md={1}>
         <center>
-          <Button fullWidth onClick={() => { onDelete(); }}><DeleteOutline color="secondary" /></Button>
+          <Button fullWidth onClick={() => { onDelete(operand); }}><DeleteOutline color="secondary" /></Button>
         </center>
       </Grid>
     </Grid>
@@ -64,6 +64,7 @@ AndOperand.propTypes = {
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  operand: PropTypes.string.isRequired,
 };
 
 export default AndOperand;
