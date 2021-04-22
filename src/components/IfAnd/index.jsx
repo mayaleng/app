@@ -4,44 +4,37 @@ import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import AndOperand from '../AndOperand';
 
-const IfAnd = ({ inputWords = [], operands = [], onChange }) => {
-  const onDelete = (operand) => {
-    const { id } = operand;
-    return operands.filter((w) => w.id !== id);
-  };
-
-  return (
-    <Grid container>
-      {operands.map((operand, index) => (
-        <AndOperand
-          key={operand.id}
-          operand={operand}
-          inputWords={inputWords}
-          onChange={(newValue) => {
-            const clonedOperands = [...operands];
-            clonedOperands[index] = newValue;
-            return onChange(clonedOperands);
+const IfAnd = ({ inputWords = [], operands = [], onChange }) => (
+  <Grid container>
+    {operands.map((operand, index) => (
+      <AndOperand
+        key={operand.id}
+        operand={operand}
+        inputWords={inputWords}
+        onChange={(newValue) => {
+          const clonedOperands = [...operands];
+          clonedOperands[index] = newValue;
+          return onChange(clonedOperands);
+        }}
+        onDelete={() => (onChange(operands.filter((w) => w.id !== operand.id)))}
+      />
+    ))}
+    <Grid item xs={12} md={12}>
+      <Box mt={2}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(e) => {
+            e.preventDefault();
+            return onChange([...operands, { id: uuidv4() }]);
           }}
-          onDelete={onDelete}
-        />
-      ))}
-      <Grid item xs={12} md={12}>
-        <Box mt={2}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={(e) => {
-              e.preventDefault();
-              return onChange([...operands, { id: uuidv4() }]);
-            }}
-          >
-            AND +
-          </Button>
-        </Box>
-      </Grid>
+        >
+          AND +
+        </Button>
+      </Box>
     </Grid>
-  );
-};
+  </Grid>
+);
 
 IfAnd.propTypes = {
   inputWords: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
