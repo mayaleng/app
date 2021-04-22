@@ -9,7 +9,6 @@ const IfAnd = ({ inputWords = [], operands = [], onChange }) => (
     {operands.map((operand, index) => (
       <AndOperand
         key={operand.id}
-        operand={operand}
         inputWords={inputWords}
         onChange={(newValue) => {
           const clonedOperands = [...operands];
