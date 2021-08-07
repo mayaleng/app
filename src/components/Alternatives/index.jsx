@@ -54,11 +54,20 @@ const Alternatives = ({
                   operator: 'or',
                   operands: [
                     {
+                      id: getShortId(),
                       operator: 'and',
                       operands: [
                         {
+                          id: getShortId(),
                           operator: 'eq',
-                          operands: [],
+                          operands: [
+                            {
+                              word: 0,
+                            },
+                            {
+                              literal: '',
+                            },
+                          ],
                         },
                       ],
                     },

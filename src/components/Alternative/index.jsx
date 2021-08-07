@@ -11,9 +11,13 @@ const Alternative = ({
 }) => {
   const {
     value,
+    condition,
   } = alternative;
 
-  const [operands, setOperands] = React.useState([]);
+  const {
+    operands,
+  } = condition;
+
   return (
     <Grid container>
       <Typography>Usar:</Typography>
@@ -26,12 +30,27 @@ const Alternative = ({
           }}
         />
       </Grid>
-
-      <Typography>Solo si las siguientes condiciones se cumplen:</Typography>
+      <br />
+      <br />
+      <br />
+      <Typography>Si las siguientes condiciones se cumplen:</Typography>
+      <br />
+      <br />
       <Grid item xs={12} md={12}>
-        <IfOr inputWords={inputWords} operands={operands} onChange={setOperands} />
+        <IfOr
+          inputWords={inputWords}
+          operands={operands}
+          onChange={(newOperands) => {
+            onChange({
+              ...alternative,
+              condition: {
+                ...condition,
+                operands: newOperands,
+              },
+            });
+          }}
+        />
       </Grid>
-
     </Grid>
   );
 };

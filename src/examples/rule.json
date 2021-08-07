@@ -81,8 +81,8 @@
                   "operator": "eq",
                   "operands": [
                     {
-                      "word": 1,
-                      "propety": "name"
+                      "word": 0,
+                      "feature": "gender"
                     },
                     {
                       "literal": "name"
@@ -96,8 +96,8 @@
                       "operator": "eq",
                       "operands": [
                         {
-                          "word": 1,
-                          "property": "person"
+                          "word": 0,
+                          "feature": "person"
                         },
                         {
                           "literal": 3
@@ -108,8 +108,8 @@
                       "operator": "startsWith",
                       "operands": [
                         {
-                          "word": 1,
-                          "property": "tag"
+                          "word": 0,
+                          "feature": "person"
                         },
                         {
                           "literal": "h"
