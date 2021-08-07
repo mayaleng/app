@@ -15,16 +15,16 @@ const AlternativeContainer = ({
   onSave,
 }) => {
   const { t } = useTranslation();
-  const [newAlternative, setNewAlternative] = useState(alternative);
+  const [localAlternative, setAlternative] = useState(alternative);
 
   return (
     <Dialog open={open} maxWidth="lg" fullWidth={fullWidth} keepMounted>
       <DialogContent>
         <Alternative
-          alternative={newAlternative}
+          alternative={localAlternative}
           inputWords={inputWords}
           onChange={(newValue) => {
-            setNewAlternative(newValue);
+            setAlternative(newValue);
           }}
         />
       </DialogContent>
@@ -34,7 +34,7 @@ const AlternativeContainer = ({
             variant="contained"
             color="primary"
             onClick={() => {
-              onSave(newAlternative);
+              onSave(localAlternative);
             }}
           >
             {`${t('ConditionalDialog.save')}`}

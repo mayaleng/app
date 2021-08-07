@@ -50,7 +50,20 @@ const Alternatives = ({
             onClick={() => {
               onAdd({
                 id: getShortId(),
-                condition: {},
+                condition: {
+                  operator: 'or',
+                  operands: [
+                    {
+                      operator: 'and',
+                      operands: [
+                        {
+                          operator: 'eq',
+                          operands: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
                 value: {},
               });
             }}
