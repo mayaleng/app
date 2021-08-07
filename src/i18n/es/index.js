@@ -80,6 +80,18 @@ const translations = {
     conditional: 'condicional',
     value: 'contenido',
   },
+  PathsEditor: {
+    add: 'agregar',
+    path: 'alternativa',
+  },
+  Alternatives: {
+    alternative: 'alternativa',
+    add: 'alternativa',
+  },
+  ConditionalDialog: {
+    save: 'guardar',
+    cancel: 'cancelar',
+  },
 };
 
 export default translations;

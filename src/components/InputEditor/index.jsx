@@ -26,11 +26,13 @@ const filterContent = (content, inputWords = []) => {
       },
     } = entity;
 
-    const word = inputWords.find((w) => id === w.id);
+    const wordIndex = inputWords.findIndex((w) => id === w.id);
+    const word = inputWords[wordIndex];
     if (!word) {
       return acc;
     }
 
+    word.index = wordIndex;
     entity.data.mention = word;
     acc[key] = entity;
 

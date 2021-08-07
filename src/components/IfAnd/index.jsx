@@ -1,7 +1,6 @@
-import { Button, Box, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
 import AndOperand from '../AndOperand';
 
 const IfAnd = ({ inputWords = [], operands = [], onChange }) => (
@@ -15,23 +14,13 @@ const IfAnd = ({ inputWords = [], operands = [], onChange }) => (
           clonedOperands[index] = newValue;
           return onChange(clonedOperands);
         }}
-        onDelete={() => {}}
+        value={operand}
+        onDelete={(id) => {
+          const newOperands = [...operands];
+          onChange(newOperands.filter((e) => e.id !== id));
+        }}
       />
     ))}
-    <Grid item xs={12} md={12}>
-      <Box mt={2}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={(e) => {
-            e.preventDefault();
-            return onChange([...operands, { id: uuidv4() }]);
-          }}
-        >
-          AND +
-        </Button>
-      </Box>
-    </Grid>
   </Grid>
 );
 

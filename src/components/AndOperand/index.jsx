@@ -10,45 +10,82 @@ const AndOperand = ({
   inputWords = [], value = {}, onChange, onDelete,
 }) => {
   const {
-    operator = '',
-    operandA = '',
-    operandB = '',
+    id = '',
+    operands = [],
+    operator,
   } = value;
 
-  const [selectedWord, setSelectedWord] = React.useState({});
+  const word = inputWords[operands[0].word];
 
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} sm={3} md={3}>
         <WordSelector
           inputWords={inputWords}
-          value={selectedWord}
-          onChange={setSelectedWord}
+          value={word}
+          onChange={(newWord) => {
+            const index = inputWords.findIndex((e) => e.id === newWord.id);
+            const newOperands = [...operands];
+            newOperands[0] = {
+              ...newOperands[0],
+              word: index,
+            };
+
+            onChange({
+              ...value,
+              operands: newOperands,
+            });
+          }}
         />
       </Grid>
-      <Grid item xs={12} sm={12} md={3}>
+      <Grid item xs={12} sm={3} md={3}>
         <WordFeatureSelector
-          word={selectedWord}
-          value={operandA}
-          onChange={(newFeature) => onChange({ ...value, operandA: newFeature })}
+          word={word}
+          value={operands[0].feature}
+          onChange={(newFeature) => {
+            const newOperands = [...operands];
+            newOperands[0] = {
+              ...newOperands[0],
+              feature: newFeature,
+            };
+
+            onChange({
+              ...value,
+              operands: newOperands,
+            });
+          }}
         />
       </Grid>
       <Grid item xs={12} sm={2} md={2}>
         <OperationSelector
           value={operator}
-          onChange={(e) => onChange({ ...value, operator: e.target.value })}
+          onChange={(e) => onChange({
+            ...value,
+            operator: e.target.value,
+          })}
         />
       </Grid>
       <Grid item xs={12} sm={3} md={3}>
         <TextField
-          value={operandB}
-          onChange={(e) => onChange({ ...value, operandB: e.target.value })}
+          value={operands[1].literal}
+          onChange={(e) => {
+            const newOperands = [...operands];
+            newOperands[1] = {
+              ...newOperands[1],
+              literal: e.target.value,
+            };
+
+            onChange({
+              ...value,
+              operands: newOperands,
+            });
+          }}
           fullWidth
         />
       </Grid>
       <Grid item xs={12} sm={1} md={1}>
         <center>
-          <Button fullWidth onClick={() => { onDelete(); }}><DeleteOutline color="secondary" /></Button>
+          <Button fullWidth onClick={() => { onDelete(id); }}><DeleteOutline color="secondary" /></Button>
         </center>
       </Grid>
     </Grid>
@@ -57,11 +94,7 @@ const AndOperand = ({
 
 AndOperand.propTypes = {
   inputWords: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  value: PropTypes.shape({
-    operandA: PropTypes.string.isRequired,
-    operandB: PropTypes.string.isRequired,
-    operator: PropTypes.string.isRequired,
-  }).isRequired,
+  value: PropTypes.shape().isRequired,
   onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };

@@ -5,14 +5,15 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
+import knowTags from '../../lib/known-tags';
 
-const WordFeatureSelector = ({ word = {}, value = {}, onChange }) => {
+const WordFeatureSelector = ({ word = {}, value = '', onChange }) => {
   const { t } = useTranslation();
   const {
-    features = {},
     tag,
   } = word;
 
+  const features = knowTags[tag];
   const featureKeys = Object.keys(features);
 
   return (
