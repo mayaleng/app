@@ -23,7 +23,7 @@
     "react-i18next": "^11.8.5",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "^5.0.1",
     "react-sortablejs": "^2.1.0",
     "redux": "^4.0.5",
     "sortablejs": "^1.13.0",
